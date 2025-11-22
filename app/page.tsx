@@ -15,7 +15,10 @@ import {
   Gamepad2,
   Orbit,
 } from 'lucide-react';
+import { useActionState } from 'react';
 import PublicHeader from './components/PublicHeader';
+import { sendContactForm } from './actions/contact';
+import { Result } from './types';
 
 
 const PhysicsStarsLanding = () => {
@@ -32,6 +35,12 @@ const PhysicsStarsLanding = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  const handleDispatch = async (_currentState: unknown, formData: FormData): Promise<Result<null>> => {
+    return await sendContactForm(formData);
+  }
+
+  const [state, dispatch, pending] = useActionState(handleDispatch, undefined);
 
   return (
     <div className="min-h-screen bg-main  text-primary font-sans relative">
@@ -359,20 +368,26 @@ const PhysicsStarsLanding = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <input type="text" placeholder="El teu nom" className="input w-full" />
+                  <form action={dispatch} className="space-y-4">
+                    <input type="text" name="name" placeholder="El teu nom" className="input w-full" />
                     <input
                       type="email"
+                      name="email"
                       placeholder="El teu correu electrònic"
                       className="input w-full"
                     />
                     <textarea
+                      name="message"
                       placeholder="El teu missatge"
                       rows={4}
                       className="input w-full resize-none"
                     />
-                    <button className="btn-primary w-full py-3">Enviar missatge</button>
-                  </div>
+                    <button type="submit" className="btn-primary w-full py-3">
+                      {
+                        pending ? 'Enviant...' : state && state.success ? 'Enviat' : 'Envia el teu missatge'
+                      }
+                    </button>
+                  </form>
                 </div>
               </motion.div>
             </motion.div>
