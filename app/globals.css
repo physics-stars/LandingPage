@@ -1,0 +1,327 @@
+@import 'tailwindcss';
+
+@layer base {
+  :root {
+    --color-primary: 59, 130, 246;
+    --color-theme: 245, 158, 11;
+    --color-bw: 255, 255, 255;
+    --color-primary-hover: 37, 99, 235;
+    --color-accent: 6, 182, 212;
+    --color-bg-main: 239, 246, 255;
+    --color-bg-card: 255, 255, 255;
+    --color-bg-hover: 248, 250, 252;
+    --color-ring-focus: 235, 235, 50;
+    --color-surface: 230, 240, 240;
+    --color-surface-hover: 240, 240, 245;
+    --color-text-primary: 15, 23, 42;
+    --color-text-secondary: 50, 70, 90;
+    --color-text-muted: 148, 163, 184;
+    --color-text-hover: 19, 24, 145;
+    --color-border: 226, 232, 240;
+    --color-border-active: 59, 130, 246;
+
+    --gradient-sun: linear-gradient(
+      180deg,
+      rgba(254, 240, 138, 0.3) 0%,
+      rgba(254, 240, 138, 0.1) 20%,
+      transparent 40%
+    );
+    --gradient-sun-landing: linear-gradient(
+      180deg,
+      rgba(254, 240, 138, 0.3) 0%,
+      rgba(254, 240, 138, 0.1) 5%,
+      transparent 10%
+    );
+    --gradient-sky: linear-gradient(
+      180deg,
+      rgba(254, 249, 195, 0.2) 0%,
+      rgb(239, 246, 255) 15%,
+      rgb(239, 246, 255) 100%
+    );
+    --gradient-sky-landing: linear-gradient(
+      180deg,
+      rgba(254, 249, 195, 0.2) 0%,
+      rgb(239, 246, 255) 30%,
+      rgb(239, 246, 255) 100%
+    );
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-glow: 0 0 20px rgb(59 130 246 / 0.2);
+
+    --gradient-from: 253, 224, 71;
+    --gradient-to: 245, 158, 11;
+  }
+
+  [data-theme='dark'] {
+    --color-primary: 56, 189, 248;
+    --color-primary-hover: 14, 165, 233;
+    --color-accent: 34, 211, 238;
+    --color-theme: 37, 99, 235;
+    --color-bw: 0, 0, 0;
+    --color-bg-main: 10, 14, 31;
+    --color-bg-card: 15, 23, 42;
+    --color-bg-hover: 30, 41, 59;
+    --color-ring-focus: 50, 140, 240;
+    --color-surface: 30, 40, 60;
+    --color-surface-hover: 30, 30, 30;
+    --color-text-primary: 241, 245, 249;
+    --color-text-secondary: 203, 213, 225;
+    --color-text-muted: 100, 116, 139;
+    --color-border: 30, 41, 59;
+    --color-border-active: 56, 189, 248;
+    --gradient-sun: transparent;
+    --gradient-sun-landing: transparent;
+    --gradient-sky: linear-gradient(180deg, rgb(2, 6, 23) 0%, rgb(15, 23, 42) 100%);
+    --gradient-sky-landing: linear-gradient(0deg, rgb(2, 6, 23) 0%, rgb(15, 23, 42) 100%);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.3);
+
+    --gradient-from: 6, 182, 212;
+    --gradient-to: 37, 99, 235;
+  }
+}
+
+@layer components {
+  /* Backgrounds */
+
+  .themed-gradient {
+    @apply bg-gradient-to-br from-[rgb(var(--gradient-from))] to-[rgb(var(--gradient-to))];
+  }
+
+  .bg-main {
+    @apply bg-[rgb(var(--color-bg-main))] transition-colors duration-300;
+  }
+
+  .bg-bw {
+    @apply bg-[rgb(var(--color-bw))];
+  }
+
+  .card {
+    @apply bg-[rgb(var(--color-bg-card))] border-2 border-[rgb(var(--color-border))] rounded-2xl;
+  }
+
+  .card-hover {
+    @apply hover:bg-[rgb(var(--color-bg-hover))] hover:border-[rgb(var(--color-ring-focus))] hover:ring-2 hover:ring-[rgb(var(--color-ring-focus))]/20 transition-all duration-200;
+  }
+
+  .surface {
+    @apply bg-[rgb(var(--color-surface))]/20 border-2 border-[rgb(var(--color-border))] backdrop-blur-2xl rounded-lg;
+  }
+
+  .surface-hover {
+    @apply hover:bg-[rgb(var(--color-surface-hover))] transition-colors duration-200;
+  }
+
+  /* Text */
+  .stroke-black {
+    -webkit-text-stroke: 2px black;
+  }
+
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-[rgb(var(--gradient-from))] to-[rgb(var(--gradient-to))] bg-clip-text text-transparent;
+  }
+
+  .text-theme {
+    @apply text-[rgb(var(--color-theme))];
+  }
+
+  .bg-theme {
+    @apply bg-[rgb(var(--color-theme))];
+  }
+
+  .bg-theme-transparent {
+    background-color: rgba(var(--color-theme), 0.2);
+  }
+
+  .text-theme-hover {
+    @apply hover:text-[rgb(var(--color-theme))];
+  }
+
+  .text-primary {
+    @apply text-[rgb(var(--color-text-primary))] font-bold text-lg;
+  }
+
+  .text-secondary {
+    @apply text-[rgb(var(--color-text-secondary))] text-sm;
+  }
+
+  .text-muted {
+    @apply text-[rgb(var(--color-text-muted))];
+  }
+
+  /* Borders */
+  .border-theme {
+    @apply border-[rgb(var(--color-border))];
+  }
+
+  .border-active {
+    @apply border-[rgb(var(--color-border-active))];
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply  cursor-pointer bg-[rgb(var(--color-theme))] text-white font-semibold px-4 py-2 rounded-lg hover:scale-105 transition-all duration-200;
+  }
+
+  .link-accent {
+    @apply text-[rgb(var(--color-accent))] hover:underline transition-colors;
+  }
+
+
+  /* Inputs */
+
+  .input {
+    @apply bg-[rgb(var(--color-bg-card))] placeholder:text-[rgb(var(--color-text-muted))] text-sm text-[rgb(var(--color-text-primary))] border-2 border-[rgb(var(--color-border))] rounded-lg px-4 py-2 focus:outline-none focus:ring-4 focus:ring-[rgb(var(--color-ring-focus))]/20 transition-all duration-200;
+  }
+
+
+  /* Gradients */
+  .sky-gradient {
+    background: var(--gradient-sky);
+  }
+
+  .sky-gradient-landing {
+    background: var(--gradient-sky-landing);
+  }
+
+  .sun-glow {
+    background: var(--gradient-sun);
+  }
+  .sun-glow-landing {
+    background: var(--gradient-sun-landing);
+  }
+
+  /* Starfield */
+  .starfield {
+    @apply relative;
+  }
+
+  [data-theme='dark'] .starfield::before {
+    content: '';
+    @apply absolute inset-0 z-10;
+    background-image:
+      radial-gradient(3px 2px at 20% 30%, white, transparent),
+      radial-gradient(2px 2px at 60% 70%, white, transparent),
+      radial-gradient(1px 2px at 50% 50%, white, transparent),
+      radial-gradient(2px 1px at 80% 20%, white, transparent),
+      radial-gradient(2px 3px at 90% 60%, white, transparent),
+      radial-gradient(1px 2px at 30% 80%, white, transparent);
+    background-size:
+      200px 200px,
+      180px 180px,
+      250px 250px,
+      150px 150px,
+      220px 220px,
+      170px 170px;
+    background-position:
+      0% 0%,
+      20% 20%,
+      40% 40%,
+      60% 60%,
+      80% 80%,
+      100% 100%;
+    opacity: 0.3;
+    animation: starfield-animation 200s linear infinite;
+  }
+
+  @keyframes starfield-animation {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  /* Sun rays */
+  [data-theme='light'] .sun-rays::before {
+    content: '';
+    @apply absolute -top-20 -left-20 w-96 h-96 rounded-full;
+    background: radial-gradient(
+      circle at center,
+      rgba(254, 240, 138, 0.4) 0%,
+      rgba(254, 240, 138, 0.2) 30%,
+      transparent 70%
+    );
+    filter: blur(60px);
+    animation: sun-pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes sun-pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 0.25s ease-out forwards;
+  }
+  .animate-zoomIn {
+    animation: zoomIn 0.25s ease-out forwards;
+  }
+
+  /* Glass effect */
+  .glass-card {
+    @apply bg-[rgb(var(--color-bg-card))]/50 rounded-2xl backdrop-blur-[3px] border-[rgb(var(--color-border))] border-2;
+  }
+
+  /* Shadows */
+  .shadow-theme-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  .shadow-theme-md {
+    box-shadow: var(--shadow-md);
+  }
+  .shadow-theme-lg {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Scrollbars */
+
+  .scrollbar-theme::-webkit-scrollbar-thumb {
+    @apply bg-[rgb(var(--color-primary)/0.3)] rounded-full;
+  }
+
+  .scrollbar-theme:hover::-webkit-scrollbar-thumb {
+    @apply bg-[rgb(var(--color-primary)/0.5)];
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+
+  
+}
