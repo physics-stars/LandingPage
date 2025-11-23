@@ -37,14 +37,13 @@ const PhysicsStarsLanding = () => {
   };
 
   const handleDispatch = async (_currentState: unknown, formData: FormData): Promise<Result<null>> => {
-    throw new Error('Function not implemented.');
     return await sendContactForm(formData);
   }
 
   const [state, dispatch, pending] = useActionState(handleDispatch, undefined);
 
   return (
-    <div className="min-h-screen bg-main  text-primary font-sans relative">
+    <div className="min-h-screen bg-main text-primary font-sans relative">
       <div className="starfield sun-rays sun-glow-landing flex flex-col h-full w-full items-center">
         {/* === Capçalera === */}
 
@@ -100,24 +99,28 @@ const PhysicsStarsLanding = () => {
                     icon: Brain,
                     title: 'Aprenentatge interactiu',
                     desc: 'Aprendre conceptes resolent problemes pràctics i immersius',
+                    color: "from-yellow-400 to-orange-500",
                   },
                   {
                     icon: Gamepad2,
                     title: 'Gamificació',
                     desc: "Fes que l'aprenentatge sigui divertit amb reptes i recompenses",
+                    color: "from-purple-400 to-pink-500",
                   },
                   {
                     icon: Target,
                     title: 'Results reals',
                     desc: 'Millora la comprensió i el rendiment en física',
+                    color: "from-green-400 to-cyan-500",
                   },
                 ].map((item, i) => (
                   <motion.div
                     key={i}
                     variants={itemVariants}
-                    className="card card-hover p-8 text-center"
+                    whileHover={{ scale: 1.05 }}
+                    className="card card-hover cursor-pointer p-8 text-center group "
                   >
-                    <div className="themed-gradient w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <div className={`bg-linear-to-r ${item.color} w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:rotate-6 transition-transform duration-300`}>
                       <item.icon className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-primary mb-3">{item.title}</h3>
@@ -148,42 +151,50 @@ const PhysicsStarsLanding = () => {
                 Manera única d&apos;aprendre física a través d&apos;immersió.
               </motion.p>
 
-              <div className="grid md:grid-cols-2 gap-12">
+              <div className="grid md:grid-cols-2 gap-8">
                 {[
                   {
                     icon: Zap,
-                    title: 'Simulacions interactives',
-                    desc: 'Manipula variables en temps real i observa com la física cobra vida amb simulacions 3D',
+                    title: "Simulacions interactives 3D",
+                    desc: "Experimenta amb forces, moviment i energia en temps real. Manipula variables, observa resultats instantanis i desenvolupa intuïció física jugant amb lleis naturals.",
+                    color: "from-yellow-400 to-orange-500",
+                  },
+                  {
+                    icon: Brain,
+                    title: "Aprenentatge adaptatiu amb IA",
+                    desc: "El nostre sistema intel·ligent analitza el teu rendiment i estil d'aprenentatge per oferir-te reptes personalitzats que et mantenen en la zona òptima de desenvolupament.",
+                    color: "from-purple-400 to-pink-500",
                   },
                   {
                     icon: Trophy,
-                    title: "Sistema d'assoliments",
-                    desc: "Guanya insígnies, puja de nivell i segueix el teu progrés en rutes d'aprenentatge personalitzades",
+                    title: "Sistema d'assoliments progressiu",
+                    desc: "Guanya insígnies, desbloqueja nivells i segueix el teu progrés en un camí d'aprenentatge gamificat. Cada èxit et motiva a continuar explorant.",
+                    color: "from-green-400 to-cyan-500",
                   },
                   {
                     icon: Users,
-                    title: 'Reptes col·laboratius',
-                    desc: 'Uneix-te amb companys per resoldre problemes complexos i competir en tornejos',
-                  },
-                  {
-                    icon: Rocket,
-                    title: 'Aprenentatge adaptatiu',
-                    desc: "Sistema impulsat per IA que ajusta la dificultat segons el teu rendiment i estil d'aprenentatge",
+                    title: "Col·laboració i competició",
+                    desc: "Treballa amb companys en reptes col·laboratius o competeix en tornejos de física. L'aprenentatge social fa que els conceptes complexos siguin més accessibles.",
+                    color: "from-blue-400 to-indigo-500",
                   },
                 ].map((feature, i) => (
                   <motion.div
                     key={i}
                     variants={itemVariants}
-                    className="flex gap-6"
-                    whileHover={{ x: 10 }}
+                    whileHover={{ scale: 1.03, y: -5 }}
+                    className="card p-8 cursor-pointer group"
                   >
-                    <div className="themed-gradient w-14 h-14 rounded-xl flex items-center justify-center shrink-0">
-                      <feature.icon className="w-7 h-7 text-white" />
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform duration-300`}
+                    >
+                      <feature.icon className="w-8 h-8 text-white" />
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">{feature.title}</h3>
-                      <p className="text-secondary">{feature.desc}</p>
-                    </div>
+                    <h3 className="text-2xl font-bold text-primary mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-secondary leading-relaxed">
+                      {feature.desc}
+                    </p>
                   </motion.div>
                 ))}
               </div>
@@ -372,8 +383,15 @@ const PhysicsStarsLanding = () => {
                   <form action={dispatch} className="space-y-4">
                     {
                       state && !state.success && (
-                        <div className="p-4 bg-red-100 text-red-800 rounded-md">
+                        <div className="p-4 bg-red-500/20 text-red-700 rounded-md text-xs">
                           {state.error}
+                        </div>
+                      )
+                    }
+                    {
+                      state && state.success && (
+                        <div className="p-4 bg-green-500/20 text-green-700 rounded-md text-sm">
+                          Missatge enviat correctament! Et respondrem aviat.
                         </div>
                       )
                     }
@@ -392,7 +410,7 @@ const PhysicsStarsLanding = () => {
                     />
                     <button type="submit" className="btn-primary w-full py-3">
                       {
-                        pending ? 'Enviant...' : state && state.success ? 'Enviat' : 'Envia el teu missatge'
+                        pending ? 'Enviant...' : 'Envia el teu missatge'
                       }
                     </button>
                   </form>

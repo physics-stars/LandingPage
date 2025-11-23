@@ -4,25 +4,31 @@ import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    // Run only on client; this component is a client component ("use client")
-    const stored = (typeof window !== 'undefined' && localStorage.getItem('theme')) as 'light' | 'dark' | null;
-    const prefersDark =
-      typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return stored || (prefersDark ? 'dark' : 'light');
-  });
+  const [mounted, setMounted] = useState(false);
+  // Initialize with undefined to indicate we don't know the theme yet
+  const [theme, setTheme] = useState<'light' | 'dark' | undefined>(undefined);
 
-  // Sync DOM and localStorage whenever theme changes (no setState here)
   useEffect(() => {
+    // 1. Read the value the Layout Script already set
+    const root = document.documentElement;
+    const initialTheme = root.getAttribute('data-theme') as 'light' | 'dark';
+    
+    // 2. Set state to match
+    setTheme(initialTheme || 'light');
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || !theme) return;
+    
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-  }, [theme]);
+  }, [theme, mounted]);
 
-  // Toggle theme
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  };
+  const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+
+  // Prevent hydration mismatch on the button itself
+  if (!mounted || !theme) return <div className="w-10 h-10" />; // Optional: Render a placeholder to prevent layout shift
 
   return (
     <button
