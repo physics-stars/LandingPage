@@ -37,6 +37,7 @@ const PhysicsStarsLanding = () => {
   };
 
   const handleDispatch = async (_currentState: unknown, formData: FormData): Promise<Result<null>> => {
+    throw new Error('Function not implemented.');
     return await sendContactForm(formData);
   }
 
@@ -369,6 +370,13 @@ const PhysicsStarsLanding = () => {
                   </div>
 
                   <form action={dispatch} className="space-y-4">
+                    {
+                      state && !state.success && (
+                        <div className="p-4 bg-red-100 text-red-800 rounded-md">
+                          {state.error}
+                        </div>
+                      )
+                    }
                     <input type="text" name="name" placeholder="El teu nom" className="input w-full" />
                     <input
                       type="email"
