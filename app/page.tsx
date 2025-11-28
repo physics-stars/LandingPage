@@ -64,7 +64,7 @@ const PhysicsStarsLanding = () => {
                 <Orbit className="w-20 h-20 text-theme" />
               </motion.div>
               <h1 className="text-6xl md:text-7xl font-bold mb-6">
-                <span className="gradient-text ">Domina la física</span>
+                <span className="gradient-text ">Pensa com un científic</span>
               </h1>
               <p className="text-xl text-secondary mb-8 max-w-2xl mx-auto">
                 Transforma l&apos;ensenyament en una aventura interactiva per a l&apos;aprenentatge de la
@@ -148,15 +148,15 @@ const PhysicsStarsLanding = () => {
                 variants={itemVariants}
                 className="text-center text-secondary mb-16 text-lg"
               >
-                Manera única d&apos;aprendre física a través d&apos;immersió.
+                Metodologia única d&apos;aprenentatge.
               </motion.p>
 
               <div className="grid md:grid-cols-2 gap-8">
                 {[
                   {
                     icon: Zap,
-                    title: "Simulacions interactives 3D",
-                    desc: "Experimenta amb forces, moviment i energia en temps real. Manipula variables, observa resultats instantanis i desenvolupa intuïció física jugant amb lleis naturals.",
+                    title: "Física = pensament crític",
+                    desc: "La Física no ha de consistir en memoritzar i aplicar fòrmules, a Physics Stars els alumnes construeixen el seu propi enunciat interactuant amb un entorn immersiu.",
                     color: "from-yellow-400 to-orange-500",
                   },
                   {
@@ -173,8 +173,8 @@ const PhysicsStarsLanding = () => {
                   },
                   {
                     icon: Users,
-                    title: "Col·laboració i competició",
-                    desc: "Treballa amb companys en reptes col·laboratius o competeix en tornejos de física. L'aprenentatge social fa que els conceptes complexos siguin més accessibles.",
+                    title: "Tenim en compte els professors",
+                    desc: ["Integració fàcil de Physics Stars a l'aula.", "UI senzilla i fàcil d'utilitzar.", "Generació automàtica d'informes de progrés dels estudiants."],
                     color: "from-blue-400 to-indigo-500",
                   },
                 ].map((feature, i) => (
@@ -192,9 +192,17 @@ const PhysicsStarsLanding = () => {
                     <h3 className="text-2xl font-bold text-primary mb-3">
                       {feature.title}
                     </h3>
-                    <p className="text-secondary leading-relaxed">
-                      {feature.desc}
-                    </p>
+                    <div className="text-secondary leading-relaxed flex flex-col">
+                      {
+                        feature.desc && Array.isArray(feature.desc) ? (
+                          feature.desc.map((f,i) => 
+                            <p key={i+ "item" + f}> - {f}</p>
+                          )
+                        ) : (
+                          <p>{feature.desc}</p>
+                        )
+                      }
+                    </div>
                   </motion.div>
                 ))}
               </div>
