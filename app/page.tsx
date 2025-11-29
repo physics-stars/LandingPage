@@ -15,13 +15,26 @@ import {
   Gamepad2,
   Orbit,
 } from 'lucide-react';
-import { useActionState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import PublicHeader from './components/PublicHeader';
 import { sendContactForm } from './actions/contact';
 import { Result } from './types';
 
+import Image from 'next/image';
+
 
 const PhysicsStarsLanding = () => {
+
+  const [dark, setDark] = useState<boolean>(false);
+
+    useEffect(() => {
+      // 1. Read the value the Layout Script already set
+      const root = document.documentElement;
+      const initialTheme = root.getAttribute('data-theme') as 'light' | 'dark';
+      
+      // 2. Set state to match
+      setDark(initialTheme === 'dark');
+    }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,7 +60,7 @@ const PhysicsStarsLanding = () => {
       <div className="starfield sun-rays sun-glow-landing flex flex-col h-full w-full items-center">
         {/* === Capçalera === */}
 
-        <PublicHeader />
+        <PublicHeader setDark={setDark} />
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
           <div className="relative z-20 max-w-5xl mx-auto px-6 text-center">
@@ -56,15 +69,20 @@ const PhysicsStarsLanding = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              <div
                 className="inline-block mb-6"
               >
-                <Orbit className="w-20 h-20 text-theme" />
-              </motion.div>
+                {
+                  dark ? (
+                    <Image src="/logo_black.svg" alt="Logo" width={160} height={160} />
+                  ) : (
+                    <Image src="/logo_white.svg" alt="Logo" width={160} height={160} />
+                  )
+                }
+                
+              </div>
               <h1 className="text-6xl md:text-7xl font-bold mb-6">
-                <span className="gradient-text ">Domina la física</span>
+                <span className="gradient-text ">Pensa com un científic</span>
               </h1>
               <p className="text-xl text-secondary mb-8 max-w-2xl mx-auto">
                 Transforma l&apos;ensenyament en una aventura interactiva per a l&apos;aprenentatge de la
@@ -148,15 +166,15 @@ const PhysicsStarsLanding = () => {
                 variants={itemVariants}
                 className="text-center text-secondary mb-16 text-lg"
               >
-                Manera única d&apos;aprendre física a través d&apos;immersió.
+                Metodologia única d&apos;aprenentatge.
               </motion.p>
 
               <div className="grid md:grid-cols-2 gap-8">
                 {[
                   {
                     icon: Zap,
-                    title: "Simulacions interactives 3D",
-                    desc: "Experimenta amb forces, moviment i energia en temps real. Manipula variables, observa resultats instantanis i desenvolupa intuïció física jugant amb lleis naturals.",
+                    title: "Física = pensament crític",
+                    desc: "La Física no ha de consistir en memoritzar i aplicar fòrmules, a Physics Stars els alumnes construeixen el seu propi enunciat interactuant amb un entorn immersiu.",
                     color: "from-yellow-400 to-orange-500",
                   },
                   {
@@ -173,8 +191,8 @@ const PhysicsStarsLanding = () => {
                   },
                   {
                     icon: Users,
-                    title: "Col·laboració i competició",
-                    desc: "Treballa amb companys en reptes col·laboratius o competeix en tornejos de física. L'aprenentatge social fa que els conceptes complexos siguin més accessibles.",
+                    title: "Tenim en compte els professors",
+                    desc: ["Integració fàcil de Physics Stars a l'aula.", "UI senzilla i fàcil d'utilitzar.", "Generació automàtica d'informes de progrés dels estudiants."],
                     color: "from-blue-400 to-indigo-500",
                   },
                 ].map((feature, i) => (
@@ -192,9 +210,17 @@ const PhysicsStarsLanding = () => {
                     <h3 className="text-2xl font-bold text-primary mb-3">
                       {feature.title}
                     </h3>
-                    <p className="text-secondary leading-relaxed">
-                      {feature.desc}
-                    </p>
+                    <div className="text-secondary leading-relaxed flex flex-col">
+                      {
+                        feature.desc && Array.isArray(feature.desc) ? (
+                          feature.desc.map((f,i) => 
+                            <p key={i+ "item" + f}> - {f}</p>
+                          )
+                        ) : (
+                          <p>{feature.desc}</p>
+                        )
+                      }
+                    </div>
                   </motion.div>
                 ))}
               </div>
