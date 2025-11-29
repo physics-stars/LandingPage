@@ -88,13 +88,13 @@ const PhysicsStarsLanding = () => {
                 Transforma l&apos;ensenyament en una aventura interactiva per a l&apos;aprenentatge de la
                 física.
               </p>
-              <div className="flex gap-4 justify-center">
+              {/* <div className="flex gap-4 justify-center">
                 <button
                   className="btn-primary text-lg px-8 py-3"
                 >
                   Accedeix
                 </button>
-              </div>
+              </div> */}
             </motion.div>
           </div>
         </section>
