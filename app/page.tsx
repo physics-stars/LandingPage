@@ -20,6 +20,8 @@ import PublicHeader from './components/PublicHeader';
 import { sendContactForm } from './actions/contact';
 import { Result } from './types';
 
+import Image from 'next/image';
+
 
 const PhysicsStarsLanding = () => {
 
@@ -56,13 +58,11 @@ const PhysicsStarsLanding = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              <div
                 className="inline-block mb-6"
               >
-                <Orbit className="w-20 h-20 text-theme" />
-              </motion.div>
+                <Image src="/logo.svg" alt="Rocket" width={160} height={160} />
+              </div>
               <h1 className="text-6xl md:text-7xl font-bold mb-6">
                 <span className="gradient-text ">Pensa com un científic</span>
               </h1>
