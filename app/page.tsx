@@ -15,7 +15,7 @@ import {
   Gamepad2,
   Orbit,
 } from 'lucide-react';
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import PublicHeader from './components/PublicHeader';
 import { sendContactForm } from './actions/contact';
 import { Result } from './types';
@@ -26,6 +26,15 @@ import Image from 'next/image';
 const PhysicsStarsLanding = () => {
 
   const [dark, setDark] = useState<boolean>(false);
+
+    useEffect(() => {
+      // 1. Read the value the Layout Script already set
+      const root = document.documentElement;
+      const initialTheme = root.getAttribute('data-theme') as 'light' | 'dark';
+      
+      // 2. Set state to match
+      setDark(initialTheme === 'dark');
+    }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
