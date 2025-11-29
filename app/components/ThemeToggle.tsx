@@ -3,7 +3,7 @@
 import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ setDark }: { setDark?: (dark: boolean) => void }) {
   const [mounted, setMounted] = useState(false);
   // Initialize with undefined to indicate we don't know the theme yet
   const [theme, setTheme] = useState<'light' | 'dark' | undefined>(undefined);
@@ -25,7 +25,13 @@ export default function ThemeToggle() {
     localStorage.setItem('theme', theme);
   }, [theme, mounted]);
 
-  const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+      if (setDark) {
+        setDark(newTheme === 'dark');
+      }
+      setTheme(newTheme);
+    };
 
   // Prevent hydration mismatch on the button itself
   if (!mounted || !theme) return <div className="w-10 h-10" />; // Optional: Render a placeholder to prevent layout shift
