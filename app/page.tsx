@@ -166,33 +166,53 @@ const PhysicsStarsLanding = () => {
                 variants={itemVariants}
                 className="text-center text-secondary mb-16 text-lg"
               >
-                Metodologia única d&apos;aprenentatge.
+                Per què les metodologies tradicionals fallen… i què fem nosaltres diferent?"
               </motion.p>
 
               <div className="grid md:grid-cols-2 gap-8">
                 {[
                   {
                     icon: Zap,
-                    title: "Física = pensament crític",
-                    desc: "La Física no ha de consistir en memoritzar i aplicar fòrmules, a Physics Stars els alumnes construeixen el seu propi enunciat interactuant amb un entorn immersiu.",
+                    title: "Més enllà d'un simple software educatiu",
+                    desc: (
+                      <>
+                        Els reptes no són de l'estil: "si resols aquest exercici, s'obrirà la porta".
+                        <br />
+                        A Physics Stars, <strong>l'ús de la física no s&apos;imposa de forma artificial</strong>: Els estudiants s'enfronten a problemes versemblants dins d'una trama atractiva on <strong>la física és la solució real.</strong>
+                      </>
+                    ),
                     color: "from-yellow-400 to-orange-500",
                   },
                   {
                     icon: Brain,
-                    title: "Aprenentatge adaptatiu amb IA",
-                    desc: "El nostre sistema intel·ligent analitza el teu rendiment i estil d'aprenentatge per oferir-te reptes personalitzats que et mantenen en la zona òptima de desenvolupament.",
+                    title: "Física = pensament crític",
+                    desc: (
+                      <>
+                      La Física no ha de consistir en memoritzar i aplicar fòrmules, a Physics Stars <strong>els alumnes construeixen el seu propi enunciat</strong> interactuant amb un entorn immersiu.
+                      </>
+                    ),
                     color: "from-purple-400 to-pink-500",
                   },
                   {
                     icon: Trophy,
-                    title: "Sistema d'assoliments progressiu",
-                    desc: "Guanya insígnies, desbloqueja nivells i segueix el teu progrés en un camí d'aprenentatge gamificat. Cada èxit et motiva a continuar explorant.",
+                    title: "Motivant per l'alumnat",
+                    desc: "[ACABAR] Physics Stars aconsegueix allò en què moltes solucions basades en la gamificació fallen: mantenir la motivació i estimular el pensament crític d’estudiants de tots els nivells, sense frustrar els que van més endarrerits ni resultar poc estimulant per als més avançats. Com? Guanya insígnies, desbloqueja recompenses i segueix el teu progrés en un camí d'aprenentatge gamificat. Cada èxit et motiva a continuar explorant.",
                     color: "from-green-400 to-cyan-500",
                   },
                   {
                     icon: Users,
-                    title: "Tenim en compte els professors",
-                    desc: ["Integració fàcil de Physics Stars a l'aula.", "UI senzilla i fàcil d'utilitzar.", "Generació automàtica d'informes de progrés dels estudiants."],
+                    title: "Tenim en compte als professors",
+                    desc:(
+                      <>
+                      No pretenem reinventar l’ensenyament: Physics Stars actua com un complement als deures, fàcil d’integrar i pensat per enriquir l’aprenentatge.
+                      <br />
+                      - Mateix contingut que al currículum escolar
+                      <br />
+                      - Interfície senzilla i fàcil d'utilitzar.
+                      <br />
+                      - Generació automàtica d'informes de progrés dels estudiants.
+                      </>
+                    ),
                     color: "from-blue-400 to-indigo-500",
                   },
                 ].map((feature, i) => (
@@ -365,13 +385,18 @@ const PhysicsStarsLanding = () => {
               variants={containerVariants}
             >
               <motion.h2 variants={itemVariants} className="text-5xl font-bold text-center mb-6">
-                Uneix-te a la <span className="gradient-text">Revolució</span>
+                Et pica la Curiositat? <span className="gradient-text">Contacta&apos;ns!</span>
               </motion.h2>
               <motion.p
                 variants={itemVariants}
                 className="text-center text-secondary mb-16 text-lg"
               >
-                Interessat en col·laborar? Contacta&apos;ns!
+                Tens una proposta o idea?<br />
+                Ets membre d&apos;una entitat educativa i t&apos;agradaria saber-ne més?<br />
+                Estàs interessat/ada a col·laborar amb nosaltres?
+                <span className="block mt-4 font-semibold">
+                  Si la resposta a alguna d&apos;aquestes preguntes és sí, contacta&apos;ns!
+                </span>
               </motion.p>
 
               <motion.div variants={itemVariants} className="card p-8">
@@ -441,11 +466,10 @@ const PhysicsStarsLanding = () => {
         <footer className="card py-12 px-6 w-full rounded-none">
           <div className="w-full text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <Star className="w-8 h-8 text-theme" fill="currentColor" />
               <span className="text-2xl font-bold gradient-text">Physics Stars</span>
             </div>
             <p className="text-[rgb(var(--color-text-muted))] mb-6">
-              Fem que l&apos;ensenyament de la física sigui apassionant
+              Fem que la física encengui passions 
             </p>
             <div className="flex justify-center gap-6 mb-6">
               <a href="#" className="text-theme hover:underline">
