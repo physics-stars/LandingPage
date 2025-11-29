@@ -383,16 +383,7 @@ const PhysicsStarsLanding = () => {
                       </div>
                       <div>
                         <p className="text-sm text-muted">Correu electrònic</p>
-                        <p className="font-semibold text-primary">UwU@physicsstars.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="themed-gradient w-12 h-12 rounded-lg flex items-center justify-center">
-                        <Phone className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted">Telèfon</p>
-                        <p className="font-semibold text-primary">+34 666 69 69 69</p>
+                        <p className="font-semibold text-primary">info@physicsstars.com</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -401,7 +392,7 @@ const PhysicsStarsLanding = () => {
                       </div>
                       <div>
                         <p className="text-sm text-muted">Ubicació</p>
-                        <p className="font-semibold text-primary">Machu Pichu, Perú</p>
+                        <p className="font-semibold text-primary">Catalunya, Espanya</p>
                       </div>
                     </div>
                   </div>
