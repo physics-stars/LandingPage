@@ -10,7 +10,6 @@ export default function PublicHeader({ setDark }: { setDark?: (dark: boolean) =>
       <div className="flex flex-col items-start gap-1 shrink-0">
         {/* Logo box */}
         <div className="flex items-center gap-2">
-          <Star className="w-8 h-8 text-theme" fill="currentColor" />
           <div className="flex flex-col ">
             <span className="text-2xl font-bold gradient-text">Physics Stars</span>
             <p className="text-secondary">Domina la física descobrint-la tú mateix.</p>
