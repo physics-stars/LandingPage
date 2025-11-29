@@ -3,7 +3,7 @@
 import { Star } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
-export default function PublicHeader() {
+export default function PublicHeader({ setDark }: { setDark?: (dark: boolean) => void }) {
   return (
     <header className="relative z-50 w-full max-w-7xl mx-auto px-6 py-4 flex items-center justify-between flex-wrap gap-4 sm:gap-6">
       {/* === Logo and Title === */}
@@ -20,7 +20,7 @@ export default function PublicHeader() {
 
       {/* === Right section === */}
       <nav className="flex items-center gap-4 sm:gap-5 text-sm text-slate-400">
-        <ThemeToggle />
+        <ThemeToggle  setDark={setDark}/>
       </nav>
     </header>
   );

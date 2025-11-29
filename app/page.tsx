@@ -15,7 +15,7 @@ import {
   Gamepad2,
   Orbit,
 } from 'lucide-react';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import PublicHeader from './components/PublicHeader';
 import { sendContactForm } from './actions/contact';
 import { Result } from './types';
@@ -24,6 +24,8 @@ import Image from 'next/image';
 
 
 const PhysicsStarsLanding = () => {
+
+  const [dark, setDark] = useState<boolean>(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -49,7 +51,7 @@ const PhysicsStarsLanding = () => {
       <div className="starfield sun-rays sun-glow-landing flex flex-col h-full w-full items-center">
         {/* === Capçalera === */}
 
-        <PublicHeader />
+        <PublicHeader setDark={setDark} />
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
           <div className="relative z-20 max-w-5xl mx-auto px-6 text-center">
@@ -61,7 +63,14 @@ const PhysicsStarsLanding = () => {
               <div
                 className="inline-block mb-6"
               >
-                <Image src="/logo.svg" alt="Rocket" width={160} height={160} />
+                {
+                  dark ? (
+                    <Image src="/logo_black.svg" alt="Logo" width={160} height={160} />
+                  ) : (
+                    <Image src="/logo_white.svg" alt="Logo" width={160} height={160} />
+                  )
+                }
+                
               </div>
               <h1 className="text-6xl md:text-7xl font-bold mb-6">
                 <span className="gradient-text ">Pensa com un científic</span>
