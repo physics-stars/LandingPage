@@ -12,7 +12,7 @@ export default function PublicHeader({ setDark }: { setDark?: (dark: boolean) =>
         <div className="flex items-center gap-2">
           <div className="flex flex-col ">
             <span className="text-2xl font-bold gradient-text">Physics Stars</span>
-            <p className="text-secondary">Domina la física descobrint-la tú mateix.</p>
+            <p className="text-secondary">Gaudeix la física.</p>
           </div>
         </div>
       </div>
