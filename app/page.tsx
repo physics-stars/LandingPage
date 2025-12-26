@@ -116,19 +116,19 @@ const PhysicsStarsLanding = () => {
                   {
                     icon: Brain,
                     title: 'Aprenentatge interactiu',
-                    desc: 'Aprendre conceptes resolent problemes que captiven i immergeixen l\'alumne',
+                    desc: 'Assimilar els conceptes estudiats resolent problemes versemblants i immersius.',
                     color: "from-yellow-400 to-orange-500",
                   },
                   {
                     icon: Gamepad2,
                     title: 'Gamificació',
-                    desc: "Presentar una narrativa atractiva, dinàmiques de videojoc i recompenses.",
+                    desc: "Emprar una narrativa atractiva, dinàmiques de videojoc i un sistema de recompenses.",
                     color: "from-purple-400 to-pink-500",
                   },
                   {
                     icon: Target,
                     title: 'Resultats reals',
-                    desc: 'Millorar el nivell en competències bàsiques i el rendiment i la motivació en física',
+                    desc: 'Millorar el nivell en competències bàsiques i el rendiment i la motivació en física.',
                     color: "from-green-400 to-cyan-500",
                   },
                 ].map((item, i) => (
@@ -188,7 +188,7 @@ const PhysicsStarsLanding = () => {
                     title: "Física = pensament crític",
                     desc: (
                       <>
-                      La Física no ha de consistir en memoritzar i aplicar fòrmules, a Physics Stars <strong>els alumnes construeixen el seu propi enunciat</strong> interactuant amb un entorn immersiu.
+                      La física no ha de consistir en memoritzar i aplicar fòrmules, a Physics Stars <strong>els alumnes construeixen el seu propi enunciat</strong> interactuant amb un entorn immersiu.
                       </>
                     ),
                     color: "from-purple-400 to-pink-500",
