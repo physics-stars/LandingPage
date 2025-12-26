@@ -116,19 +116,19 @@ const PhysicsStarsLanding = () => {
                   {
                     icon: Brain,
                     title: 'Aprenentatge interactiu',
-                    desc: 'Aprendre conceptes resolent problemes pràctics i immersius',
+                    desc: 'Aprendre conceptes resolent problemes que captiven i immergeixen l\'alumne',
                     color: "from-yellow-400 to-orange-500",
                   },
                   {
                     icon: Gamepad2,
                     title: 'Gamificació',
-                    desc: "Fes que l'aprenentatge sigui divertit amb reptes i recompenses",
+                    desc: "Presentar una narrativa atractiva, dinàmiques de videojoc i recompenses.",
                     color: "from-purple-400 to-pink-500",
                   },
                   {
                     icon: Target,
-                    title: 'Results reals',
-                    desc: 'Millora la comprensió i el rendiment en física',
+                    title: 'Resultats reals',
+                    desc: 'Millorar el nivell en competències bàsiques i el rendiment i la motivació en física',
                     color: "from-green-400 to-cyan-500",
                   },
                 ].map((item, i) => (
@@ -178,7 +178,7 @@ const PhysicsStarsLanding = () => {
                       <>
                         Els reptes no són de l'estil: "si resols aquest exercici, s'obrirà la porta".
                         <br />
-                        A Physics Stars, <strong>l'ús de la física no s&apos;imposa de forma artificial</strong>: Els estudiants s'enfronten a problemes versemblants dins d'una trama atractiva on <strong>la física és la solució real.</strong>
+                        A Physics Stars, <strong>l'ús de la física no s&apos;imposa de forma artificial</strong>: els estudiants s'enfronten a problemes versemblants dins d'una trama atractiva on <strong>la física és la solució real.</strong>
                       </>
                     ),
                     color: "from-yellow-400 to-orange-500",
@@ -196,7 +196,10 @@ const PhysicsStarsLanding = () => {
                   {
                     icon: Trophy,
                     title: "Motivant per l'alumnat",
-                    desc: "[ACABAR] Physics Stars aconsegueix allò en què moltes solucions basades en la gamificació fallen: mantenir la motivació i estimular el pensament crític d’estudiants de tots els nivells, sense frustrar els que van més endarrerits ni resultar poc estimulant per als més avançats. Com? Guanya insígnies, desbloqueja recompenses i segueix el teu progrés en un camí d'aprenentatge gamificat. Cada èxit et motiva a continuar explorant.",
+                    desc: (
+                    <>
+                      <strong>Physics Stars aconsegueix allò en què moltes solucions basades en la gamificació fallen:</strong> mantenir la motivació i estimular el pensament crític d'estudiants de tots els nivells, sense frustrar els qui van més endarrerits ni resultar poc estimulant per als més avançats. <strong>Com?</strong> Oferint reptes on l’ajuda és sempre accessible, però on l'autonomia té recompensa. Com menys pistes necessites, majors les recompenses, fomentant l'esforç personal sense penalitzar ningú.
+                    </>),
                     color: "from-green-400 to-cyan-500",
                   },
                   {
@@ -262,43 +265,49 @@ const PhysicsStarsLanding = () => {
               </motion.h2>
 
               <div className="space-y-8">
-                {[
-                  {
-                    phase: 'Fase 1: Fonaments',
-                    status: 'Completat',
-                    progress: 100,
-                    items: [
-                      'Motor físic principal',
-                      'Disseny UI/UX bàsic',
-                      'Mecàniques de joc inicials',
-                    ],
-                  },
-                  {
-                    phase: 'Fase 2: Llançament beta',
-                    status: 'En curs',
-                    progress: 65,
-                    items: [
-                      'Més de 10 mòduls interactius',
-                      "Sistema d'assoliments",
-                      'Prova beta amb 500 estudiants',
-                    ],
-                  },
-                  {
-                    phase: 'Fase 3: Escala',
-                    status: 'Properament',
-                    progress: 20,
-                    items: [
-                      'Adaptivitat impulsada per IA',
-                      "Llançament d'app mòbil",
-                      'Col·laboració amb escoles',
-                    ],
-                  },
-                  {
-                    phase: 'Fase 4: Global',
-                    status: 'Planificat',
-                    progress: 0,
-                    items: ['Suport multilingüe', 'Integració VR', 'Currículum internacional'],
-                  },
+              {[
+                {
+                  phase: 'Fase 1: Pilot a paper a escoles',
+                  status: 'Completat',
+                  progress: 100,
+                  items: [
+                    'Prova pilot en format paper (4t d’ESO)',
+                    'Validació de la metodologia i la narrativa',
+                    'Recollida de feedback de l’aula i iteracions',
+                  ],
+                },
+                {
+                  phase: 'Fase 2: MVP digital (Unity Web) — Món de Cinemàtica',
+                  status: 'En curs',
+                  progress: 25,
+                  items: [
+                    'Implementació del primer món: Cinemàtica (MRU/MRUA)',
+                    'Mecàniques base: narrativa, reptes i sistema de pistes',
+                    'Recollida de feedback i test de viabilitat amb usuaris reals',
+                    'Obtenció de resultats més realistes (ús, dificultat, aprenentatge)',
+                  ],
+                },
+                {
+                  phase: 'Fase 3: Primera versió completa',
+                  status: 'Properament',
+                  progress: 0,
+                  items: [
+                    'Desenvolupament d’una primera versió completa del producte',
+                    'Cerca d’inversors i partners per codesenvolupar',
+                    'Test amb escoles (privades i concertades) i iteració intensiva',
+                    'Inici de converses serioses de contractació i acords',
+                  ],
+                },
+                {
+                  phase: 'Fase 4: Implementació + creixement i expansió',
+                  status: 'Planificat',
+                  progress: 0,
+                  items: [
+                    'Implementació a les primeres escoles i inici de facturació',
+                    'Feedback loop: millora constant basada en dades i professorat',
+                    'Escalat progressiu i expansió a més centres i territoris',
+                  ],
+                },
                 ].map((phase, i) => (
                   <motion.div key={i} variants={itemVariants} className="card p-6">
                     <div className="flex items-start justify-between mb-4">
