@@ -195,10 +195,12 @@ const PhysicsStarsLanding = () => {
                   },
                   {
                     icon: Trophy,
-                    title: "Motivant per l'alumnat",
+                    title: "Motivador per l'alumnat",
                     desc: (
                     <>
-                      <strong>Physics Stars aconsegueix allò en què moltes solucions basades en la gamificació fallen:</strong> mantenir la motivació i estimular el pensament crític d'estudiants de tots els nivells, sense frustrar els qui van més endarrerits ni resultar poc estimulant per als més avançats. <strong>Com?</strong> Oferint reptes on l’ajuda és sempre accessible, però on l'autonomia té recompensa. Com menys pistes necessites, majors les recompenses, fomentant l'esforç personal sense penalitzar ningú.
+                      <strong>Physics Stars aconsegueix allò en què moltes propostes basades en la gamificació fallen:</strong> mantenir la motivació i estimular el pensament crític d'estudiants de tots els nivells, sense frustrar els qui van més endarrerits ni resultar poc estimulant per als més avançats.
+                      <br />
+                      <strong>Com?</strong> Oferint reptes on l’ajuda és sempre accessible, però on l'autonomia té recompensa. Com menys pistes necessites, millors les recompenses, fomentant l'esforç personal sense penalitzar ningú.
                     </>),
                     color: "from-green-400 to-cyan-500",
                   },
@@ -207,7 +209,8 @@ const PhysicsStarsLanding = () => {
                     title: "Tenim en compte als professors",
                     desc:(
                       <>
-                      No pretenem reinventar l’ensenyament: Physics Stars actua com un complement als deures, fàcil d’integrar i pensat per enriquir l’aprenentatge.
+                      No pretenem reinventar l’ensenyament: Physics Stars actua com un complement als deures, fàcil d’integrar a les dinàmiques escolars i pensat com una eina pràctica pels docents.
+                      <br />
                       <br />
                       - Mateix contingut que al currículum escolar
                       <br />
@@ -271,9 +274,9 @@ const PhysicsStarsLanding = () => {
                   status: 'Completat',
                   progress: 100,
                   items: [
-                    'Prova pilot en format paper (4t d’ESO)',
-                    'Validació de la metodologia i la narrativa',
-                    'Recollida de feedback de l’aula i iteracions',
+                    'Prova pilot en format paper testada en múltipples aules de 4t d’ESO.',
+                    'Validació de la metodologia i la narrativa.',
+                    'Recollida de feedback de l’aula i iteracions.',
                   ],
                 },
                 {
@@ -281,10 +284,10 @@ const PhysicsStarsLanding = () => {
                   status: 'En curs',
                   progress: 25,
                   items: [
-                    'Implementació del primer món: Cinemàtica (MRU/MRUA)',
-                    'Mecàniques base: narrativa, reptes i sistema de pistes i recompenses',
-                    'Recollida de feedback i test de viabilitat amb usuaris reals',
-                    'Obtenció de resultats més realistes (ús, dificultat, aprenentatge)',
+                    'Implementació del primer món: Cinemàtica (MRU/MRUA).',
+                    'Mecàniques base: narrativa, reptes i sistema de pistes i recompenses.',
+                    'Recollida de feedback i test de viabilitat amb usuaris reals.',
+                    'Obtenció de resultats més realistes (ús, dificultat, aprenentatge).',
                   ],
                 },
                 {
@@ -292,10 +295,10 @@ const PhysicsStarsLanding = () => {
                   status: 'Properament',
                   progress: 0,
                   items: [
-                    'Cerca d’inversors i partners per codesenvolupar',
-                    'Desenvolupament d’una primera versió completa del producte',
-                    'Test amb escoles (privades i concertades) i iteració intensiva',
-                    'Inici de converses serioses de contractació i acords',
+                    'Cerca d’inversors i partners per codesenvolupar.',
+                    'Desenvolupament d’una primera versió completa del producte.',
+                    'Test amb escoles (privades i concertades) i iteració intensiva.',
+                    'Inici de converses serioses de contractació i acords.',
                   ],
                 },
                 {
@@ -303,9 +306,9 @@ const PhysicsStarsLanding = () => {
                   status: 'Properament',
                   progress: 0,
                   items: [
-                    'Implementació a les primeres escoles i inici de facturació',
-                    'Feedback loop: millora constant basada en dades i professorat',
-                    'Escalat progressiu i expansió a més centres i territoris',
+                    'Implementació a les primeres escoles i inici de facturació.',
+                    'Feedback loop: millora constant basada en dades i professorat.',
+                    'Escalat progressiu i expansió a més centres i territoris.',
                   ],
                 },
                 ].map((phase, i) => (
