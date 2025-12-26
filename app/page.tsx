@@ -277,12 +277,12 @@ const PhysicsStarsLanding = () => {
                   ],
                 },
                 {
-                  phase: 'Fase 2: MVP digital (Unity Web) — Món de Cinemàtica',
+                  phase: 'Fase 2: MVP digital (Unity Web) — Cinemàtica',
                   status: 'En curs',
                   progress: 25,
                   items: [
                     'Implementació del primer món: Cinemàtica (MRU/MRUA)',
-                    'Mecàniques base: narrativa, reptes i sistema de pistes',
+                    'Mecàniques base: narrativa, reptes i sistema de pistes i recompenses',
                     'Recollida de feedback i test de viabilitat amb usuaris reals',
                     'Obtenció de resultats més realistes (ús, dificultat, aprenentatge)',
                   ],
@@ -292,15 +292,15 @@ const PhysicsStarsLanding = () => {
                   status: 'Properament',
                   progress: 0,
                   items: [
-                    'Desenvolupament d’una primera versió completa del producte',
                     'Cerca d’inversors i partners per codesenvolupar',
+                    'Desenvolupament d’una primera versió completa del producte',
                     'Test amb escoles (privades i concertades) i iteració intensiva',
                     'Inici de converses serioses de contractació i acords',
                   ],
                 },
                 {
                   phase: 'Fase 4: Implementació + creixement i expansió',
-                  status: 'Planificat',
+                  status: 'Properament',
                   progress: 0,
                   items: [
                     'Implementació a les primeres escoles i inici de facturació',
@@ -358,7 +358,7 @@ const PhysicsStarsLanding = () => {
                 variants={itemVariants}
                 className="text-center text-secondary mb-16 text-lg"
               >
-                Educadors, desenvolupadors i dissenyadors apassionats units per un mateix objectiu
+                Estudiants d’Enginyeria Matemàtica i Física i d’Enginyeria Informàtica de la URV, units per un mateix objectiu.
               </motion.p>
 
               <div className="grid md:grid-cols-4 gap-8">
