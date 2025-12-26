@@ -285,7 +285,7 @@ const PhysicsStarsLanding = () => {
                   progress: 25,
                   items: [
                     'Implementació del primer món: Cinemàtica (MRU/MRUA).',
-                    'Mecàniques base: narrativa, reptes i sistema de pistes i recompenses.',
+                    'Mecàniques base: narrativa, experiència de l’usuari i sistema de pistes i recompenses.',
                     'Recollida de feedback i test de viabilitat amb usuaris reals.',
                     'Obtenció de resultats més realistes (ús, dificultat, aprenentatge).',
                   ],
@@ -295,19 +295,19 @@ const PhysicsStarsLanding = () => {
                   status: 'Properament',
                   progress: 0,
                   items: [
-                    'Cerca d’inversors i partners per codesenvolupar.',
+                    'Cerca d’inversors i socis per codesenvolupar.',
                     'Desenvolupament d’una primera versió completa del producte.',
-                    'Test amb escoles (privades i concertades) i iteració intensiva.',
-                    'Inici de converses serioses de contractació i acords.',
+                    'Tests amb escoles i iteració intensiva.',
+                    'Presentació de Physics Stars a potencials clients i centres educatius.',
                   ],
                 },
                 {
-                  phase: 'Fase 4: Implementació + creixement i expansió',
+                  phase: 'Fase 4: Implementació, creixement i expansió',
                   status: 'Properament',
                   progress: 0,
                   items: [
-                    'Implementació a les primeres escoles i inici de facturació.',
-                    'Feedback loop: millora constant basada en dades i professorat.',
+                    'Integració a les primeres escoles i inici de facturació.',
+                    'Feedback loop: millora constant basada en dades extretes de l’aplicació i valoracions del professorat.',
                     'Escalat progressiu i expansió a més centres i territoris.',
                   ],
                 },
@@ -366,8 +366,8 @@ const PhysicsStarsLanding = () => {
 
               <div className="grid md:grid-cols-4 gap-8">
                 {[
-                  { name: 'David Diestre', role: 'Responsable de relacions', img: '👨‍💼' },
-                  { name: 'Juan Roset', role: 'Responsable legal', img: '🐴​' },
+                  { name: 'David Diestre', role: 'Cofundador', img: '👨‍💼' },
+                  { name: 'Juan Roset', role: 'Cofundador', img: '🐴​' },
                   { name: 'Marcel Povill', role: 'Desenvolupador principal', img: '👨‍💻' },
                   { name: 'Aissam Khadraoui', role: 'Dissenyador UX/UI', img: '🧑🏾‍🎨​' },
                 ].map((member, i) => (
