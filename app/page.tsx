@@ -11,46 +11,63 @@ import Image from "next/image";
 // Mission/About Section Data
 const missionData = [
   {
-    icon: "psychology", // Mapped from Brain
+    icon: "psychology",
     title: "Aprenentatge interactiu",
     desc: "Assimilar els conceptes estudiats resolent problemes versemblants i immersius.",
-    style: "chest", // internal style flag
   },
   {
-    icon: "sports_esports", // Mapped from Gamepad2
+    icon: "sports_esports",
     title: "Gamificació",
     desc: "Emprar una narrativa atractiva, dinàmiques de videojoc i un sistema de recompenses.",
-    style: "book",
   },
   {
-    icon: "ads_click", // Mapped from Target
+    icon: "ads_click",
     title: "Resultats reals",
     desc: "Millorar el nivell en competències bàsiques i el rendiment i la motivació en física.",
-    style: "scroll",
   },
 ];
 
 // Differentiation/Features Data
 const featuresData = [
   {
-    icon: "bolt", // Zap
+    icon: "bolt",
     title: "Més enllà d'un software",
-    desc: "Els reptes no són artificials. Els estudiants s'enfronten a problemes versemblants on la física és la solució real.",
+    desc: "Els reptes no són artificials ni abstractes; aquí la física és l'única eina per sobreviure.",
+    list: [
+      "Problemes versemblants.",
+      "Narrativa immersiva.",
+      "Aplicació pràctica real.",
+    ],
   },
   {
-    icon: "psychology", // Brain
+    icon: "psychology",
     title: "Pensament crític",
-    desc: "La física no és memoritzar. Els alumnes construeixen el seu propi enunciat interactuant amb un entorn immersiu.",
+    desc: "Oblida't de memoritzar fórmules buides. Els alumnes han de deduir, provar i descobrir.",
+    list: [
+      "Construcció d'hipòtesis.",
+      "Aprenentatge per error.",
+      "Interacció amb l'entorn.",
+    ],
   },
   {
-    icon: "emoji_events", // Trophy
+    icon: "emoji_events",
     title: "Motivador",
-    desc: "Reptes on l'ajuda és accessible, però l'autonomia té recompensa. Fomentant l'esforç personal sense penalitzar ningú.",
+    desc: "Un sistema on l'esforç té recompensa i l'ajuda està disponible sense generar frustració.",
+    list: [
+      "Autonomia premiada.",
+      "Corba de dificultat adaptada.",
+      "Sense penalitzacions injustes.",
+    ],
   },
   {
-    icon: "group", // Users
+    icon: "group",
     title: "Per als professors",
-    desc: "Complement als deures amb generació automàtica d'informes de progrés dels estudiants.",
+    desc: "Una eina dissenyada per complementar les teves classes, no per substituir-les.",
+    list: [
+      "Informes automàtics.",
+      "Seguiment del progrés.",
+      "Integració curricular.",
+    ],
   },
 ];
 
@@ -89,7 +106,7 @@ const teamData = [
 export default function PhysicsStarsLanding() {
   const handleDispatch = async (
     _currentState: unknown,
-    formData: FormData
+    formData: FormData,
   ): Promise<Result<null>> => {
     return await sendContactForm(formData);
   };
@@ -114,7 +131,6 @@ export default function PhysicsStarsLanding() {
         @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
         @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap");
       `}</style>
-
       <div className="bg-midnight text-parchment font-body selection:bg-primary selection:text-wood-dark h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
         {/* --- Top Navigation (Floating) --- */}
         <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:px-10 transition-all duration-300 bg-linear-to-b from-black/80 to-transparent">
@@ -177,7 +193,7 @@ export default function PhysicsStarsLanding() {
               className="w-full h-full bg-cover bg-center bg-no-repeat opacity-60"
               style={{
                 backgroundImage:
-                  "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBQvZNRfg7qllcGamHxyGThHgZo1gEOGH8dtEEYHlv5k-YNwQ91eMbiXt6EAgOPkOSdDIcC9GLtLt25YVBwv0dhuvFns8dmlXYyzKjYtK5HrExFMn0KWsjtxSyyI5aUCIhaI8NAHZjosxasCNv3flCx7SnrZ5U-_Vpe2VJI4DZUYibLW67ZCErZa-vx01CqN2juEJoLdRrR4_uD2Z-HJAwaEHmZCQIK6KTH4BT2EDP48izt-wczpkKQB_kJATqJTQ1JouCe1BvxhwMz')",
+                  "url('/bg.png')",
               }}
             ></div>
             <div className="absolute inset-0 bg-linear-to-b from-midnight/30 via-midnight/60 to-midnight"></div>
@@ -240,91 +256,138 @@ export default function PhysicsStarsLanding() {
           </div>
         </section>
 
-        {/* --- Mission Section: The Guild Hall --- */}
+        {/* --- Secció Missió: La Taula del Gremi --- */}
         <section
-          className="relative min-h-screen flex flex-col justify-center py-24 bg-[#1a1614] overflow-hidden snap-start"
+          className="relative min-h-screen flex flex-col justify-center pt-24 pb-48 overflow-hidden snap-start"
           id="guild-hall"
+          style={{
+            backgroundColor: "#0a0e17", 
+            backgroundImage: "radial-gradient(circle at center, #1a2333 0%, #0a0e17 70%)",
+          }}
         >
-          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]"></div>
+          {/* Textura de fusta antiga a la "taula" del fons */}
+          <div className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/wood-pattern.png')" }}></div>
+          
+          {/* Llum càlida central */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="font-display text-4xl text-parchment font-bold mb-3 drop-shadow-md flex items-center justify-center gap-3">
-                <span className="h-px w-12 bg-primary/50"></span>
-                La Nostra Missió
-                <span className="h-px w-12 bg-primary/50"></span>
-              </h2>
-              <p className="text-parchment/60 max-w-2xl mx-auto">
-                Explora els artefactes sobre la taula per descobrir la nostra
-                filosofia.
-              </p>
+            <div className="text-center mb-4"> {/* Marge reduït per guanyar espai */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* Títol millorat: Tauló de fusta clavat */}
+                <div className="relative inline-block">
+                   {/* Suport del rètol (corda o metall darrere) */}
+                   <div className="absolute -top-4 left-10 w-1 h-8 bg-wood-light/50 z-0"></div>
+                   <div className="absolute -top-4 right-10 w-1 h-8 bg-wood-light/50 z-0"></div>
+
+                   <div className="relative py-5 px-16 bg-wood-dark border-y-4 border-[#251614] rounded-sm shadow-2xl z-10">
+                      {/* Claus a les cantonades */}
+                      <div className="absolute top-3 left-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+                      <div className="absolute top-3 right-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+                      <div className="absolute bottom-3 left-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+                      <div className="absolute bottom-3 right-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+
+                      <h2 className="font-display text-3xl md:text-5xl text-parchment font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-widest uppercase border-b-2 border-parchment/10 pb-1">
+                        La Missió del Gremi
+                      </h2>
+                   </div>
+                </div>
+                
+                <p className="text-parchment/80 max-w-2xl mx-auto font-serif italic text-lg mt-4 leading-relaxed drop-shadow-md">
+                  Acosta&apos;t a la taula, iniciat. Aquí tens els tres pilars del nostre coneixement.
+                </p>
+              </motion.div>
             </div>
 
-            {/* Interactive Objects Grid */}
+            {/* Graella de "Pergamins sobre la Taula" */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={containerVariants}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto perspective-1000"
+              className="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-12 max-w-6xl mx-auto perspective-1000"
             >
               {missionData.map((item, idx) => (
                 <motion.div
                   key={idx}
                   variants={itemVariants}
-                  className="group relative h-80 cursor-pointer"
-                  style={{ marginTop: idx === 1 ? "0px" : "0px" }}
+                  className="group relative h-full cursor-pointer px-6 mt-8"
                 >
-                  {item.style === "chest" && (
-                    <div className="absolute inset-0 bg-wood-dark rounded-t-full rounded-b-lg transform transition-transform duration-500 group-hover:-translate-y-2 wood-border flex flex-col items-center justify-center p-6 text-center shadow-2xl">
-                      <div className="size-20 bg-black/30 rounded-full flex items-center justify-center mb-6 shadow-inner border border-white/5 group-hover:bg-primary/10 transition-colors">
-                        <span className="material-symbols-outlined text-5xl text-amber-500 drop-shadow-glow">
-                          {item.icon}
-                        </span>
-                      </div>
-                      <h3 className="font-display text-xl text-primary font-bold mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-parchment/70 text-sm leading-relaxed">
-                        {item.desc}
-                      </p>
-                      <div className="absolute -top-2.5 w-[90%] h-4 bg-[#4e342e] rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  {/* Contenidor Principal: Rotlle de Pergamí */}
+                  <div className="relative h-full transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-1 flex flex-col">
+                    
+                    {/* --- RODET SUPERIOR (Amb boles de fusta) --- */}
+                    {/* Ajustat z-index i posició per tapar el tall del paper */}
+                    <div className="absolute -top-5 -left-5 -right-5 h-10 z-30 flex items-center justify-center pointer-events-none">
+                        <div className="w-full h-6 bg-wood-dark rounded-full shadow-[0_5px_5px_rgba(0,0,0,0.5)] relative flex items-center justify-between">
+                            <div className="absolute inset-x-2 top-1 h-2 bg-white/5 rounded-full blur-[1px]"></div>
+                            
+                            {/* BOLA ESQUERRA */}
+                            <div className="absolute -left-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_2px_2px_6px_rgba(255,255,255,0.15),0_5px_15px_rgba(0,0,0,0.6)] z-30 flex items-center justify-center">
+                              <div className="size-3 bg-white/10 rounded-full blur-[2px] -translate-x-2 -translate-y-2"></div>
+                            </div>
+
+                            {/* BOLA DRETA */}
+                            <div className="absolute -right-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_-2px_2px_6px_rgba(255,255,255,0.15),0_5px_15px_rgba(0,0,0,0.6)] z-30 flex items-center justify-center">
+                              <div className="size-3 bg-white/10 rounded-full blur-[2px] translate-x-2 -translate-y-2"></div>
+                            </div>
+                        </div>
                     </div>
-                  )}
-                  {item.style === "book" && (
-                    <div className="absolute inset-0 bg-[#2a1a3e] rounded-r-2xl rounded-l-md transform transition-transform duration-500 group-hover:-rotate-2 border-4 border-[#5b4080] shadow-[0_0_20px_rgba(139,92,246,0.3)] flex flex-col items-center justify-center p-6 text-center">
-                      <div className="size-20 rounded-full flex items-center justify-center mb-6 relative">
-                        <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full animate-pulse"></div>
-                        <span className="material-symbols-outlined text-5xl text-purple-300 relative z-10">
-                          {item.icon}
-                        </span>
+
+                    {/* --- COS DEL PERGAMÍ --- */}
+                    {/* flex-grow per ocupar tota l'alçada disponible, pb-12 per no xocar amb el rodet inferior */}
+                    <div className="relative bg-parchment shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden w-full rounded-sm mx-auto flex-grow flex flex-col pb-12 pt-6">
+                      {/* Textura de mapa antic */}
+                      <div className="absolute inset-0 opacity-40 mix-blend-multiply" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/old-map.png')" }}></div>
+                      
+                      {/* EFECTE CREMAT */}
+                      <div className="absolute inset-0 shadow-[inset_0_0_80px_30px_rgba(62,39,35,0.6)] pointer-events-none z-10"></div>
+                      
+                      {/* Contingut */}
+                      <div className="relative px-8 flex flex-col items-center text-center z-20 h-full justify-start">
+                        
+                        {/* Ícon */}
+                        <div className="relative mb-4 mt-2 shrink-0">
+                          <div className="absolute inset-0 bg-amber-600/20 blur-xl rounded-full scale-50 group-hover:scale-110 transition-transform duration-500"></div>
+                          <div className="size-20 bg-[#7c2d23] rounded-full flex items-center justify-center border-4 border-[#5d4037]/60 shadow-[0_4px_8px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.2)] group-hover:border-amber-500/50 transition-colors duration-300">
+                            <span className="material-symbols-outlined text-4xl text-parchment drop-shadow-md group-hover:text-white transition-colors">
+                              {item.icon}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Títol */}
+                        <h3 className="font-display text-2xl text-wood-dark font-bold mb-3 tracking-wide drop-shadow-sm uppercase border-b-2 border-wood-dark/30 pb-3 w-full shrink-0">
+                          {item.title}
+                        </h3>
+
+                        {/* Descripció */}
+                        <p className="text-wood-dark font-serif text-lg leading-relaxed italic font-medium px-2 opacity-90">
+                          &quot;{item.desc}&quot;
+                        </p>
                       </div>
-                      <h3 className="font-display text-xl text-purple-200 font-bold mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-purple-100/70 text-sm leading-relaxed">
-                        {item.desc}
-                      </p>
-                      <div className="absolute left-0 top-2 bottom-2 w-4 bg-[#1a0f2e] border-r border-white/10 rounded-l-sm"></div>
                     </div>
-                  )}
-                  {item.style === "scroll" && (
-                    <div className="absolute inset-0 bg-parchment rounded-lg transform transition-transform duration-500 group-hover:translate-y-2 shadow-xl flex flex-col items-center justify-center p-8 text-center overflow-hidden">
-                      <div className="absolute top-0 left-0 right-0 h-8 bg-linear-to-b from-[#d4c5a3] to-parchment border-b border-[#c9ba96]"></div>
-                      <div className="absolute bottom-0 left-0 right-0 h-8 bg-linear-to-t from-[#d4c5a3] to-parchment border-t border-[#c9ba96]"></div>
-                      <div className="size-20 flex items-center justify-center mb-4 text-wood-dark">
-                        <span className="material-symbols-outlined text-5xl">
-                          {item.icon}
-                        </span>
-                      </div>
-                      <h3 className="font-display text-xl text-wood-dark font-bold mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-wood/80 text-sm leading-relaxed font-serif">
-                        {item.desc}
-                      </p>
+
+                    {/* --- RODET INFERIOR (Amb boles de fusta) --- */}
+                    {/* Posicionat més amunt (-bottom-5) per tapar el final del paper correctament */}
+                    <div className="absolute -bottom-5 -left-5 -right-5 h-10 z-30 flex items-center justify-center pointer-events-none">
+                        <div className="w-full h-6 bg-wood-dark rounded-full shadow-[0_5px_5px_rgba(0,0,0,0.5)] relative flex items-center justify-between">
+                            <div className="absolute inset-x-2 bottom-1 h-2 bg-black/20 rounded-full blur-[1px]"></div>
+
+                            {/* BOLA ESQUERRA */}
+                            <div className="absolute -left-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_2px_-2px_6px_rgba(0,0,0,0.3),0_5px_15px_rgba(0,0,0,0.6)] z-30"></div>
+
+                            {/* BOLA DRETA */}
+                            <div className="absolute -right-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_-2px_-2px_6px_rgba(0,0,0,0.3),0_5px_15px_rgba(0,0,0,0.6)] z-30"></div>
+                        </div>
                     </div>
-                  )}
-                  <div className="absolute -bottom-4 left-4 right-4 h-4 bg-black/60 rounded-[100%] blur-md"></div>
+                    
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -342,7 +405,7 @@ export default function PhysicsStarsLanding() {
 
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#5d4037] px-8 py-2 rounded-t-lg border-t-2 border-x-2 border-wood-light shadow-lg z-10">
                 <h2 className="font-display text-parchment font-bold text-lg uppercase tracking-widest text-shadow">
-                  Tauler d&apos;Anuncis
+                  En que ens diferenciem?
                 </h2>
               </div>
 
@@ -356,27 +419,57 @@ export default function PhysicsStarsLanding() {
                     key={i}
                     className={`relative w-full md:w-[45%] lg:w-[22%] bg-linear-to-br from-[#1a237e] to-[#0d47a1] text-white p-1 rounded-lg shadow-[0_0_20px_rgba(255,170,0,0.3)] hover:scale-105 transition-all duration-300 group`}
                   >
-                    <div className="h-full w-full border-2 border-primary/50 rounded-md p-6 relative overflow-hidden flex flex-col">
+                    <div className="h-full w-full border-2 border-primary/50 rounded-md p-6 relative overflow-hidden flex flex-col z-10 bg-midnight/40 backdrop-blur-sm">
+                      {/* Decorative Pin */}
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 size-4 rounded-full bg-primary shadow-glow z-20"></div>
                       <div className="absolute top-4 right-4 text-primary animate-pulse opacity-50">
                         ✦
                       </div>
 
+                      {/* Icon */}
                       <div className="mb-4 flex justify-center">
-                        <span className="material-symbols-outlined text-4xl text-primary">
-                          {feature.icon}
-                        </span>
+                        <div className="bg-linear-to-b from-primary/20 to-transparent p-3 rounded-full border border-primary/30">
+                          <span className="material-symbols-outlined text-3xl text-primary drop-shadow-md">
+                            {feature.icon}
+                          </span>
+                        </div>
                       </div>
 
-                      <h3 className="font-display font-bold text-xl mb-3 text-primary drop-shadow-md text-center leading-tight">
+                      {/* Title */}
+                      <h3 className="font-display font-bold text-xl mb-3 text-white drop-shadow-md text-center leading-tight">
                         {feature.title}
                       </h3>
-                      <p className="font-body text-xs text-blue-100 leading-relaxed text-center grow">
-                        {feature.desc}
-                      </p>
 
-                      <div className="absolute bottom-0 right-0 p-4 opacity-5">
-                        <span className="material-symbols-outlined text-6xl">
+                      {/* --- MILLORA DE L'ESTIL DE CONTINGUT --- */}
+                      <div className="grow flex flex-col gap-4">
+                        {/* 1. Description: Serif, Italic, Lighter Color (Lore style) */}
+                        <p className="font-serif italic text-sm text-blue-100/80 text-center leading-relaxed border-b border-primary/20 pb-3">
+                          {feature.desc}
+                        </p>
+
+                        {/* 2. Enumeration: Bold, List style */}
+                        {feature.list && (
+                          <ul className="space-y-1.5 px-1">
+                            {feature.list.map((item, idx) => (
+                              <li
+                                key={idx}
+                                className="flex items-start gap-2 text-xs font-medium text-white/90"
+                              >
+                                <span className="material-symbols-outlined text-sm text-primary shrink-0 pt-0.5">
+                                  check
+                                </span>
+                                <span className="text-left leading-snug">
+                                  {item}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+
+                      {/* Background Watermark Icon */}
+                      <div className="absolute -bottom-6 -right-6 opacity-10 pointer-events-none rotate-12">
+                        <span className="material-symbols-outlined text-8xl">
                           {feature.icon}
                         </span>
                       </div>
@@ -409,8 +502,10 @@ export default function PhysicsStarsLanding() {
             <div className="relative max-w-4xl mx-auto pl-8 md:pl-0">
               {/* Vertical Train Tracks */}
               <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-4 -translate-x-1/2 flex flex-col items-center">
-                <div className="w-2 h-full bg-[#2c2c2c] border-x border-[#1a1a1a]"></div>
-                <div className="absolute inset-0 h-full bg-[repeating-linear-gradient(0deg,transparent,transparent_18px,#3e2723_18px,#3e2723_24px)] w-8 -left-2"></div>
+                {/* Rails */}
+                <div className="w-2 h-full bg-[#2c2c2c] border-x border-[#1a1a1a] relative z-10"></div>
+                {/* Sleepers (Travesses) - CANVI: Ajustat el gradient per ajuntar-les */}
+                <div className="absolute inset-0 h-full bg-[repeating-linear-gradient(0deg,transparent,transparent_8px,#3e2723_8px,#3e2723_12px)] w-10 -left-3 z-0"></div>
               </div>
 
               {roadmapData.map((item, i) => {
@@ -505,8 +600,8 @@ export default function PhysicsStarsLanding() {
         </section>
 
         {/* --- Team: The Adventurers' Party --- */}
-        <section 
-          className="min-h-screen flex flex-col justify-center py-24 bg-midnight-light snap-start" 
+        <section
+          className="min-h-screen flex flex-col justify-center py-24 bg-midnight-light snap-start"
           id="team"
         >
           <div className="container mx-auto px-4">
@@ -553,80 +648,112 @@ export default function PhysicsStarsLanding() {
           {/* Ambient Lighting */}
           <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-black pointer-events-none"></div>
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-          
+
           {/* Magical Glow behind the scroll */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-primary/10 blur-[100px] rounded-full pointer-events-none"></div>
 
           <div className="relative z-10 w-full max-w-5xl px-4">
             {/* Scroll/Envelope Container */}
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               className="bg-parchment p-8 md:p-12 rounded-sm shadow-[0_0_60px_rgba(0,0,0,0.8)] relative border-4 border-double border-wood-light"
               style={{
-                backgroundImage: "url('https://www.transparenttextures.com/patterns/paper.png')"
+                backgroundImage:
+                  "url('https://www.transparenttextures.com/patterns/paper.png')",
               }}
             >
               {/* Decorative Corner Stamps */}
               <div className="absolute top-4 right-4 opacity-60 rotate-12 pointer-events-none hidden md:block">
                 <div className="size-24 border-4 border-red-900/40 rounded-full flex items-center justify-center">
-                  <span className="material-symbols-outlined text-5xl text-red-900/40">verified</span>
+                  <span className="material-symbols-outlined text-5xl text-red-900/40">
+                    verified
+                  </span>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14">
-                
                 {/* --- LEFT COLUMN: Guild Info --- */}
                 <div className="md:col-span-5 flex flex-col justify-start space-y-2 md:border-r-2 md:border-wood-light/30 md:pr-10">
                   <div>
                     <div className="inline-flex items-center gap-2 mb-2 text-wood">
-                        <span className="h-px w-8 bg-wood"></span>
-                        <span className="text-xs font-bold uppercase tracking-widest">Informació</span>
+                      <span className="h-px w-8 bg-wood"></span>
+                      <span className="text-xs font-bold uppercase tracking-widest">
+                        Informació
+                      </span>
                     </div>
                     <h2 className="font-display text-3xl md:text-4xl text-wood-dark font-black drop-shadow-sm mb-6">
                       Seu del Gremi
                     </h2>
                     <p className="text-wood font-serif italic mb-8">
-                      Pots trobar els nostres mestres artesans i savis a les següents coordenades.
+                      Pots trobar els nostres mestres artesans i savis a les
+                      següents coordenades.
                     </p>
                   </div>
 
                   {/* Info Item: Location */}
                   <div className="flex items-start gap-4 group">
                     <div className="size-12 rounded-lg bg-wood-dark text-parchment flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                      <span className="material-symbols-outlined text-2xl">castle</span>
+                      <span className="material-symbols-outlined text-2xl">
+                        castle
+                      </span>
                     </div>
                     <div>
-                      <h4 className="font-display font-bold text-wood-dark text-lg">Ciutadella del Coneixement</h4>
-                      <p className="text-wood font-serif text-sm">Campus Sescelades,<br/>Tarragona, Catalunya</p>
+                      <h4 className="font-display font-bold text-wood-dark text-lg">
+                        Ciutadella del Coneixement
+                      </h4>
+                      <p className="text-wood font-serif text-sm">
+                        Campus Sescelades,
+                        <br />
+                        Tarragona, Catalunya
+                      </p>
                     </div>
                   </div>
 
                   {/* Info Item: Email */}
                   <div className="flex items-start gap-4 group">
                     <div className="size-12 rounded-lg bg-wood-dark text-parchment flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                      <span className="material-symbols-outlined text-2xl">mark_email_unread</span>
+                      <span className="material-symbols-outlined text-2xl">
+                        mark_email_unread
+                      </span>
                     </div>
                     <div>
-                      <h4 className="font-display font-bold text-wood-dark text-lg">Correu Màgic</h4>
-                      <a href="mailto:info@physicsstars.com" className="text-wood font-serif text-sm hover:text-primary transition-colors">info@physicsstars.com</a>
+                      <h4 className="font-display font-bold text-wood-dark text-lg">
+                        Correu Màgic
+                      </h4>
+                      <a
+                        href="mailto:info@physicsstars.com"
+                        className="text-wood font-serif text-sm hover:text-primary transition-colors"
+                      >
+                        info@physicsstars.com
+                      </a>
                     </div>
                   </div>
 
-                   {/* Info Item: Socials (LinkedIn/Twitter) */}
-                   <div className="flex items-start gap-4 group">
+                  {/* Info Item: Socials (LinkedIn/Twitter) */}
+                  <div className="flex items-start gap-4 group">
                     <div className="size-12 rounded-lg bg-wood-dark text-parchment flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                      <span className="material-symbols-outlined text-2xl">hub</span>
+                      <span className="material-symbols-outlined text-2xl">
+                        hub
+                      </span>
                     </div>
                     <div>
-                      <h4 className="font-display font-bold text-wood-dark text-lg">Xarxa de Cristalls</h4>
+                      <h4 className="font-display font-bold text-wood-dark text-lg">
+                        Xarxa de Cristalls
+                      </h4>
                       <div className="flex gap-3 mt-1">
-                        <a href="#" className="text-xs font-bold uppercase tracking-wider text-wood border-b border-wood hover:text-primary hover:border-primary transition-colors">
+                        <a
+                          href="#"
+                          className="text-xs font-bold uppercase tracking-wider text-wood border-b border-wood hover:text-primary hover:border-primary transition-colors"
+                        >
                           LinkedIn
                         </a>
                         <span className="text-wood/30">|</span>
-                        <a href="#" className="text-xs font-bold uppercase tracking-wider text-wood border-b border-wood hover:text-primary hover:border-primary transition-colors">
+                        <a
+                          href="#"
+                          className="text-xs font-bold uppercase tracking-wider text-wood border-b border-wood hover:text-primary hover:border-primary transition-colors"
+                        >
                           Instagram
                         </a>
                       </div>
@@ -638,15 +765,18 @@ export default function PhysicsStarsLanding() {
                 <div className="md:col-span-7">
                   {/* Form Header */}
                   <div className="mb-8">
-                     <div className="inline-flex items-center gap-2 mb-2 text-wood">
-                        <span className="h-px w-8 bg-wood"></span>
-                        <span className="text-xs font-bold uppercase tracking-widest">Missatgeria</span>
+                    <div className="inline-flex items-center gap-2 mb-2 text-wood">
+                      <span className="h-px w-8 bg-wood"></span>
+                      <span className="text-xs font-bold uppercase tracking-widest">
+                        Missatgeria
+                      </span>
                     </div>
                     <h3 className="font-display text-3xl text-wood-dark font-black">
                       Envia un Corb
                     </h3>
                     <p className="text-wood mt-2 font-serif italic text-sm">
-                      Tens una proposta o dubte? Els nostres escribes et respondran ràpidament.
+                      Tens una proposta o dubte? Els nostres escribes et
+                      respondran ràpidament.
                     </p>
                   </div>
 
@@ -659,7 +789,9 @@ export default function PhysicsStarsLanding() {
                     )}
                     {state && state.success && (
                       <div className="p-3 bg-green-100 border-l-4 border-green-800 text-green-900 text-xs font-serif font-bold shadow-sm flex items-center gap-2">
-                        <span className="material-symbols-outlined text-sm">check_circle</span>
+                        <span className="material-symbols-outlined text-sm">
+                          check_circle
+                        </span>
                         Corb enviat correctament!
                       </div>
                     )}
@@ -707,17 +839,18 @@ export default function PhysicsStarsLanding() {
                         className="w-full group relative bg-wood-dark hover:bg-[#2d1b18] text-parchment transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 p-1"
                       >
                         <div className="border border-parchment/20 rounded-md py-3 flex items-center justify-center gap-3 relative overflow-hidden">
-                            
-                            <div className="relative flex items-center justify-center size-8">
-                                <div className="absolute inset-0 bg-red-800 rounded-full border-2 border-red-900 shadow-inner group-hover:scale-110 transition-transform"></div>
-                                <span className="material-symbols-outlined text-white/90 text-sm relative z-10">mail</span>
-                            </div>
-
-                            <span className="font-display font-bold text-lg tracking-wide">
-                                {pending ? "Enviant..." : "Signar i Enviar"}
+                          <div className="relative flex items-center justify-center size-8">
+                            <div className="absolute inset-0 bg-red-800 rounded-full border-2 border-red-900 shadow-inner group-hover:scale-110 transition-transform"></div>
+                            <span className="material-symbols-outlined text-white/90 text-sm relative z-10">
+                              mail
                             </span>
+                          </div>
 
-                            <div className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+                          <span className="font-display font-bold text-lg tracking-wide">
+                            {pending ? "Enviant..." : "Signar i Enviar"}
+                          </span>
+
+                          <div className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                         </div>
                       </button>
                     </div>
