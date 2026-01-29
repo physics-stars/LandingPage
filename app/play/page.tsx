@@ -173,7 +173,7 @@ export default function GamePage() {
                   </div>
 
                   <h2 className="font-display text-2xl text-white font-bold mb-6 tracking-widest uppercase">
-                    Carregant Simulació
+                    Carregant Physics Stars
                   </h2>
 
                   {/* Steampunk Progress Bar */}
