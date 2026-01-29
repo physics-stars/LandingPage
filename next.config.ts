@@ -1,7 +1,31 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+// next.config.js
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: "/Build/BuildProd.framework.js.br",
+        headers: [
+          { key: "Content-Type", value: "application/javascript" },
+          { key: "Content-Encoding", value: "br" },
+          { key: "Vary", value: "Accept-Encoding" },
+        ],
+      },
+      {
+        source: "/Build/BuildProd.wasm.br",
+        headers: [
+          { key: "Content-Type", value: "application/wasm" },
+          { key: "Content-Encoding", value: "br" },
+          { key: "Vary", value: "Accept-Encoding" },
+        ],
+      },
+      {
+        source: "/Build/BuildProd.data.br",
+        headers: [
+          { key: "Content-Type", value: "application/octet-stream" },
+          { key: "Content-Encoding", value: "br" },
+          { key: "Vary", value: "Accept-Encoding" },
+        ],
+      },
+    ];
+  },
 };
-
-export default nextConfig;

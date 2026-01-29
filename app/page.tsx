@@ -1,27 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useActionState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import { sendContactForm } from "./actions/contact"; // Assuming this exists in your project
 import { Result } from "./types"; // Assuming this exists in your project
 import Image from "next/image";
+import { Brain, Gamepad2, Target } from "lucide-react";
+import Link from "next/link";
 
 // --- Data Mapping from Original TSX to New Style ---
 
 // Mission/About Section Data
 const missionData = [
   {
-    icon: "psychology",
+    icon: Brain, // Canviat string per component
     title: "Aprenentatge interactiu",
     desc: "Assimilar els conceptes estudiats resolent problemes versemblants i immersius.",
   },
   {
-    icon: "sports_esports",
+    icon: Gamepad2, // Canviat string per component
     title: "Gamificació",
     desc: "Emprar una narrativa atractiva, dinàmiques de videojoc i un sistema de recompenses.",
   },
   {
-    icon: "ads_click",
+    icon: Target, // Canviat string per component
     title: "Resultats reals",
     desc: "Millorar el nivell en competències bàsiques i el rendiment i la motivació en física.",
   },
@@ -112,6 +114,25 @@ export default function PhysicsStarsLanding() {
   };
 
   const [state, dispatch, pending] = useActionState(handleDispatch, undefined);
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }, // Detecta la secció quan és visible al 50%
+    );
+
+    const sections = document.querySelectorAll("section");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   // Framer motion variants (re-used from your TSX)
   const containerVariants = {
@@ -150,27 +171,44 @@ export default function PhysicsStarsLanding() {
                 Physics Stars
               </span>
             </div>
+            {/* --- MODIFICAT: Navegació amb Highlighting Condicional --- */}
             <div className="hidden md:flex items-center gap-8 bg-black/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10">
               <a
-                className="text-parchment/80 hover:text-primary transition-colors text-sm font-medium hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                className={`transition-all duration-300 text-sm font-medium ${
+                  activeSection === "guild-hall"
+                    ? "text-primary drop-shadow-[0_0_10px_rgba(255,170,0,0.8)] scale-110 font-bold"
+                    : "text-parchment/80 hover:text-primary hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                }`}
                 href="#guild-hall"
               >
                 Missió
               </a>
               <a
-                className="text-parchment/80 hover:text-primary transition-colors text-sm font-medium hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                className={`transition-all duration-300 text-sm font-medium ${
+                  activeSection === "notice-board"
+                    ? "text-primary drop-shadow-[0_0_10px_rgba(255,170,0,0.8)] scale-110 font-bold"
+                    : "text-parchment/80 hover:text-primary hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                }`}
                 href="#notice-board"
               >
                 Diferenciació
               </a>
               <a
-                className="text-parchment/80 hover:text-primary transition-colors text-sm font-medium hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                className={`transition-all duration-300 text-sm font-medium ${
+                  activeSection === "roadmap"
+                    ? "text-primary drop-shadow-[0_0_10px_rgba(255,170,0,0.8)] scale-110 font-bold"
+                    : "text-parchment/80 hover:text-primary hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                }`}
                 href="#roadmap"
               >
                 Roadmap
               </a>
               <a
-                className="text-parchment/80 hover:text-primary transition-colors text-sm font-medium hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                className={`transition-all duration-300 text-sm font-medium ${
+                  activeSection === "team"
+                    ? "text-primary drop-shadow-[0_0_10px_rgba(255,170,0,0.8)] scale-110 font-bold"
+                    : "text-parchment/80 hover:text-primary hover:drop-shadow-[0_0_8px_rgba(255,170,0,0.5)]"
+                }`}
                 href="#team"
               >
                 Equip
@@ -178,22 +216,21 @@ export default function PhysicsStarsLanding() {
             </div>
             <button className="hidden md:flex bg-wood-dark hover:bg-wood transition-colors text-primary border border-primary/50 px-5 py-2 rounded-lg font-bold text-sm shadow-lg items-center gap-2 group">
               <span>Login</span>
-              <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">
-                login
-              </span>
             </button>
           </div>
         </nav>
 
         {/* --- Hero Section: Village Square --- */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 snap-start">
+        <section
+          id="hero"
+          className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 snap-start"
+        >
           {/* Background Layer */}
           <div className="absolute inset-0 z-0">
             <div
               className="w-full h-full bg-cover bg-center bg-no-repeat opacity-60"
               style={{
-                backgroundImage:
-                  "url('/bg.png')",
+                backgroundImage: "url('/bg.png')",
               }}
             ></div>
             <div className="absolute inset-0 bg-linear-to-b from-midnight/30 via-midnight/60 to-midnight"></div>
@@ -230,9 +267,9 @@ export default function PhysicsStarsLanding() {
               <button className="relative bg-wood-dark border-[6px] border-[#5d4037] rounded-xl px-12 py-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform transition-transform hover:scale-105 active:scale-95">
                 <div className="absolute inset-0 border border-white/10 rounded-lg pointer-events-none"></div>
                 <div className="flex flex-col items-center">
-                  <span className="font-display text-2xl font-bold text-primary tracking-wider uppercase drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                  <Link href={"/play"} className="font-display text-2xl font-bold text-primary tracking-wider uppercase drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
                     Comença l&apos;Aventura
-                  </span>
+                  </Link>
                   <span className="text-parchment/60 text-xs mt-1 font-serif italic">
                     Accés Gratuït
                   </span>
@@ -258,21 +295,30 @@ export default function PhysicsStarsLanding() {
 
         {/* --- Secció Missió: La Taula del Gremi --- */}
         <section
-          className="relative min-h-screen flex flex-col justify-center pt-24 pb-48 overflow-hidden snap-start"
+          className="relative min-h-screen flex flex-col justify-center pt-18 pb-48 overflow-hidden snap-start"
           id="guild-hall"
           style={{
-            backgroundColor: "#0a0e17", 
-            backgroundImage: "radial-gradient(circle at center, #1a2333 0%, #0a0e17 70%)",
+            backgroundColor: "#0a0e17",
+            backgroundImage:
+              "radial-gradient(circle at center, #1a2333 0%, #0a0e17 70%)",
           }}
         >
           {/* Textura de fusta antiga a la "taula" del fons */}
-          <div className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/wood-pattern.png')" }}></div>
-          
+          <div
+            className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none"
+            style={{
+              backgroundImage:
+                "url('https://www.transparenttextures.com/patterns/wood-pattern.png')",
+            }}
+          ></div>
+
           {/* Llum càlida central */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-4"> {/* Marge reduït per guanyar espai */}
+            <div className="text-center mb-4">
+              {" "}
+              {/* Marge reduït per guanyar espai */}
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -281,25 +327,26 @@ export default function PhysicsStarsLanding() {
               >
                 {/* Títol millorat: Tauló de fusta clavat */}
                 <div className="relative inline-block">
-                   {/* Suport del rètol (corda o metall darrere) */}
-                   <div className="absolute -top-4 left-10 w-1 h-8 bg-wood-light/50 z-0"></div>
-                   <div className="absolute -top-4 right-10 w-1 h-8 bg-wood-light/50 z-0"></div>
+                  {/* Suport del rètol (corda o metall darrere) */}
+                  <div className="absolute -top-4 left-10 w-1 h-8 bg-wood-light/50 z-0"></div>
+                  <div className="absolute -top-4 right-10 w-1 h-8 bg-wood-light/50 z-0"></div>
 
-                   <div className="relative py-5 px-16 bg-wood-dark border-y-4 border-[#251614] rounded-sm shadow-2xl z-10">
-                      {/* Claus a les cantonades */}
-                      <div className="absolute top-3 left-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
-                      <div className="absolute top-3 right-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
-                      <div className="absolute bottom-3 left-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
-                      <div className="absolute bottom-3 right-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+                  <div className="relative py-5 px-16 bg-wood-dark border-y-4 border-[#251614] rounded-sm shadow-2xl z-10">
+                    {/* Claus a les cantonades */}
+                    <div className="absolute top-3 left-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+                    <div className="absolute top-3 right-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+                    <div className="absolute bottom-3 left-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
+                    <div className="absolute bottom-3 right-3 size-3 bg-[#1a100e] rounded-full shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] border border-black/50"></div>
 
-                      <h2 className="font-display text-3xl md:text-5xl text-parchment font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-widest uppercase border-b-2 border-parchment/10 pb-1">
-                        La Missió del Gremi
-                      </h2>
-                   </div>
+                    <h2 className="font-display text-3xl md:text-5xl text-parchment font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-widest uppercase border-b-2 border-parchment/10 pb-1">
+                      La Missió del Gremi
+                    </h2>
+                  </div>
                 </div>
-                
+
                 <p className="text-parchment/80 max-w-2xl mx-auto font-serif italic text-lg mt-4 leading-relaxed drop-shadow-md">
-                  Acosta&apos;t a la taula, iniciat. Aquí tens els tres pilars del nostre coneixement.
+                  Acosta&apos;t a la taula, iniciat. Aquí tens els tres pilars
+                  del nostre coneixement.
                 </p>
               </motion.div>
             </div>
@@ -320,44 +367,57 @@ export default function PhysicsStarsLanding() {
                 >
                   {/* Contenidor Principal: Rotlle de Pergamí */}
                   <div className="relative h-full transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-1 flex flex-col">
-                    
-                    {/* --- RODET SUPERIOR (Amb boles de fusta) --- */}
-                    {/* Ajustat z-index i posició per tapar el tall del paper */}
-                    <div className="absolute -top-5 -left-5 -right-5 h-10 z-30 flex items-center justify-center pointer-events-none">
-                        <div className="w-full h-6 bg-wood-dark rounded-full shadow-[0_5px_5px_rgba(0,0,0,0.5)] relative flex items-center justify-between">
-                            <div className="absolute inset-x-2 top-1 h-2 bg-white/5 rounded-full blur-[1px]"></div>
-                            
-                            {/* BOLA ESQUERRA */}
-                            <div className="absolute -left-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_2px_2px_6px_rgba(255,255,255,0.15),0_5px_15px_rgba(0,0,0,0.6)] z-30 flex items-center justify-center">
-                              <div className="size-3 bg-white/10 rounded-full blur-[2px] -translate-x-2 -translate-y-2"></div>
-                            </div>
+                    {/* --- RODET SUPERIOR (Estil Fusta Integral) --- */}
+                    <div className="absolute -top-6 -left-7 -right-7 h-12 z-30 flex items-center justify-center pointer-events-none">
+                      {/* Barra Central (Eix) - MODIFICAT: Color de fusta més clar amb gradient per volum */}
+                      <div className="absolute inset-x-4 h-4 bg-linear-to-b from-[#2d1b18] via-[#5d4037] to-[#2d1b18] rounded-full shadow-[0_2px_5px_rgba(0,0,0,0.6)]"></div>
 
-                            {/* BOLA DRETA */}
-                            <div className="absolute -right-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_-2px_2px_6px_rgba(255,255,255,0.15),0_5px_15px_rgba(0,0,0,0.6)] z-30 flex items-center justify-center">
-                              <div className="size-3 bg-white/10 rounded-full blur-[2px] translate-x-2 -translate-y-2"></div>
-                            </div>
+                      <div className="w-full relative flex items-center justify-between px-1">
+                        {/* MANEC ESQUERRE */}
+                        <div className="relative h-10 w-5 bg-linear-to-b from-[#2d1b18] via-[#5d4037] to-[#2d1b18] rounded-l-md shadow-[5px_5px_10px_rgba(0,0,0,0.5)] border-r-2 border-black/30">
+                          {/* Anella: Fusta fosca (sense metall ni blanc) */}
+                          <div className="absolute right-0 inset-y-0 w-1.5 bg-[#1a100e] shadow-[inset_0_0_2px_rgba(0,0,0,0.8)] border-l border-white/5"></div>
                         </div>
+
+                        {/* MANEC DRET */}
+                        <div className="relative h-10 w-5 bg-linear-to-b from-[#2d1b18] via-[#5d4037] to-[#2d1b18] rounded-r-md shadow-[-5px_5px_10px_rgba(0,0,0,0.5)] border-l-2 border-black/30">
+                          {/* Anella: Fusta fosca */}
+                          <div className="absolute left-0 inset-y-0 w-1.5 bg-[#1a100e] shadow-[inset_0_0_2px_rgba(0,0,0,0.8)] border-r border-white/5"></div>
+                        </div>
+                      </div>
                     </div>
 
                     {/* --- COS DEL PERGAMÍ --- */}
-                    {/* flex-grow per ocupar tota l'alçada disponible, pb-12 per no xocar amb el rodet inferior */}
-                    <div className="relative bg-parchment shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden w-full rounded-sm mx-auto flex-grow flex flex-col pb-12 pt-6">
+                    <div className="relative bg-parchment shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden w-full rounded-sm mx-auto flex-grow flex flex-col pb-12 pt-6 border-x border-[#d7ccc8]">
                       {/* Textura de mapa antic */}
-                      <div className="absolute inset-0 opacity-40 mix-blend-multiply" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/old-map.png')" }}></div>
-                      
+                      <div
+                        className="absolute inset-0 opacity-40 mix-blend-multiply"
+                        style={{
+                          backgroundImage:
+                            "url('https://www.transparenttextures.com/patterns/old-map.png')",
+                        }}
+                      ></div>
+
                       {/* EFECTE CREMAT */}
                       <div className="absolute inset-0 shadow-[inset_0_0_80px_30px_rgba(62,39,35,0.6)] pointer-events-none z-10"></div>
-                      
+
                       {/* Contingut */}
                       <div className="relative px-8 flex flex-col items-center text-center z-20 h-full justify-start">
-                        
-                        {/* Ícon */}
-                        <div className="relative mb-4 mt-2 shrink-0">
-                          <div className="absolute inset-0 bg-amber-600/20 blur-xl rounded-full scale-50 group-hover:scale-110 transition-transform duration-500"></div>
-                          <div className="size-20 bg-[#7c2d23] rounded-full flex items-center justify-center border-4 border-[#5d4037]/60 shadow-[0_4px_8px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.2)] group-hover:border-amber-500/50 transition-colors duration-300">
-                            <span className="material-symbols-outlined text-4xl text-parchment drop-shadow-md group-hover:text-white transition-colors">
-                              {item.icon}
-                            </span>
+                        {/* Ícon - MODIFICAT: Estil "Il·lustració de Manuscrit" (Tinta i Or vell) */}
+                        <div className="relative mb-5 mt-4 shrink-0">
+                          {/* Brillantor de fons difusa (Aura màgica subtil) */}
+                          <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full scale-75 group-hover:scale-125 transition-transform duration-700"></div>
+
+                          {/* Contenidor Circular (Estil traç de ploma) */}
+                          <div className="size-24 rounded-full flex items-center justify-center border-2 border-dashed border-[#5d4037]/60 bg-[#5d4037]/5 shadow-[inset_0_0_15px_rgba(62,39,35,0.1)] group-hover:border-[#5d4037] group-hover:bg-[#5d4037]/10 transition-all duration-300">
+                            {/* Anella interior fina */}
+                            <div className="size-20 rounded-full border border-[#5d4037]/20 flex items-center justify-center">
+                              {/* Icona color tinta fosca (Lucide Component) */}
+                              <item.icon
+                                strokeWidth={1.5}
+                                className="w-10 h-10 text-[#3e2723] drop-shadow-[0_1px_1px_rgba(255,255,255,0.5)] group-hover:scale-110 transition-transform duration-300"
+                              />
+                            </div>
                           </div>
                         </div>
 
@@ -373,20 +433,25 @@ export default function PhysicsStarsLanding() {
                       </div>
                     </div>
 
-                    {/* --- RODET INFERIOR (Amb boles de fusta) --- */}
-                    {/* Posicionat més amunt (-bottom-5) per tapar el final del paper correctament */}
-                    <div className="absolute -bottom-5 -left-5 -right-5 h-10 z-30 flex items-center justify-center pointer-events-none">
-                        <div className="w-full h-6 bg-wood-dark rounded-full shadow-[0_5px_5px_rgba(0,0,0,0.5)] relative flex items-center justify-between">
-                            <div className="absolute inset-x-2 bottom-1 h-2 bg-black/20 rounded-full blur-[1px]"></div>
+                    {/* --- RODET INFERIOR (Estil Fusta Integral) --- */}
+                    <div className="absolute -bottom-6 -left-7 -right-7 h-12 z-30 flex items-center justify-center pointer-events-none">
+                      {/* Barra Central (Eix) - MODIFICAT: Color de fusta més clar amb gradient per volum */}
+                      <div className="absolute inset-x-4 h-4 bg-linear-to-b from-[#2d1b18] via-[#5d4037] to-[#2d1b18] rounded-full shadow-[0_2px_5px_rgba(0,0,0,0.6)]"></div>
 
-                            {/* BOLA ESQUERRA */}
-                            <div className="absolute -left-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_2px_-2px_6px_rgba(0,0,0,0.3),0_5px_15px_rgba(0,0,0,0.6)] z-30"></div>
-
-                            {/* BOLA DRETA */}
-                            <div className="absolute -right-3 size-10 rounded-full bg-wood-dark border border-black/40 shadow-[inset_-2px_-2px_6px_rgba(0,0,0,0.3),0_5px_15px_rgba(0,0,0,0.6)] z-30"></div>
+                      <div className="w-full relative flex items-center justify-between px-1">
+                        {/* MANEC ESQUERRE */}
+                        <div className="relative h-10 w-5 bg-linear-to-b from-[#2d1b18] via-[#5d4037] to-[#2d1b18] rounded-l-md shadow-[5px_5px_10px_rgba(0,0,0,0.5)] border-r-2 border-black/30">
+                          {/* Anella: Fusta fosca */}
+                          <div className="absolute right-0 inset-y-0 w-1.5 bg-[#1a100e] shadow-[inset_0_0_2px_rgba(0,0,0,0.8)] border-l border-white/5"></div>
                         </div>
+
+                        {/* MANEC DRET */}
+                        <div className="relative h-10 w-5 bg-linear-to-b from-[#2d1b18] via-[#5d4037] to-[#2d1b18] rounded-r-md shadow-[-5px_5px_10px_rgba(0,0,0,0.5)] border-l-2 border-black/30">
+                          {/* Anella: Fusta fosca */}
+                          <div className="absolute left-0 inset-y-0 w-1.5 bg-[#1a100e] shadow-[inset_0_0_2px_rgba(0,0,0,0.8)] border-r border-white/5"></div>
+                        </div>
+                      </div>
                     </div>
-                    
                   </div>
                 </motion.div>
               ))}
@@ -865,8 +930,7 @@ export default function PhysicsStarsLanding() {
         <footer className="bg-black py-8 border-t border-white/10 text-center text-gray-500 text-sm snap-start">
           <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <p>
-              © {new Date().getFullYear()} Physics Stars Guild. All rights
-              reserved.
+              © {new Date().getFullYear()} Physics Stars. All rights reserved.
             </p>
             <div className="flex gap-4">
               <a className="hover:text-primary" href="#">
