@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Serif, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+
+// 2. Configurem la font Serif (pel cos del text)
+const notoSerif = Noto_Serif({
+  subsets: ["latin"],
+  variable: "--font-noto-serif", // Nom de la variable CSS
+  display: "swap",
+});
+
+// 3. Configurem la font Sans (pels títols/display)
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta", // Nom de la variable CSS
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -98,9 +112,10 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable} ${notoSerif.variable} antialiased`}
       >
         {children}
+      
       </body>
     </html>
   );

@@ -1,4 +1,3 @@
-
 @import "tailwindcss";
 
 @theme {
@@ -6,70 +5,303 @@
   --color-primary: #ffaa00;
   --color-midnight: #121826;
   --color-midnight-light: #1e293b;
+  
+  /* Parchment Colors */
   --color-parchment: #F0E6CC;
   --color-parchment-dark: #e3d5b0;
+  
+  /* Wood Colors */
   --color-wood: #5c4033;
   --color-wood-dark: #3e2723;
+  --color-wood-medium: #4e342e;
   --color-wood-light: #8d6e63;
 
   /* Fonts */
-  --font-display: "Noto Serif", serif;
-  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-display: var(--font-plus-jakarta), sans-serif;
+  --font-body: var(--font-noto-serif), serif;
 
-  /* Backgrounds */
-  --image-wood-pattern: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), repeating-linear-gradient(45deg, #3e2723 0, #3e2723 10px, #4e342e 10px, #4e342e 20px);
-  --image-starry-night: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-
-  /* Shadows */
+  /* Shadows Custom */
   --shadow-glow: 0 0 15px rgba(255, 170, 0, 0.5);
   --shadow-glow-strong: 0 0 25px rgba(255, 170, 0, 0.7);
+  --shadow-deep: 0 10px 30px rgba(0,0,0,0.8);
   --shadow-inner-wood: inset 0 0 20px rgba(0,0,0,0.6);
 
   /* Animations */
   --animate-sway: sway 6s ease-in-out infinite;
-  --animate-fade-in-up: fadeInUp 1s ease-out forwards;
-  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-wiggle: wiggle 4s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
 
   @keyframes sway {
     0%, 100% { transform: rotate(-1deg); }
     50% { transform: rotate(1deg); }
   }
   
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
 }
 
-/* Custom Utility Classes mimicking the HTML style block */
+/* --- REUSABLE RPG COMPONENTS --- */
+@layer components {
+
+  /* --- TEXTURES & OVERLAYS --- */
+  
+  /* Textura de veta de fusta */
+  .wood-grain-overlay {
+    @apply absolute inset-0 opacity-20 pointer-events-none rounded-lg;
+    background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.2) 45px);
+  }
+
+  /* Textura de paper brut/vell */
+  .paper-texture-overlay {
+    @apply absolute inset-0 opacity-40 mix-blend-multiply pointer-events-none;
+    background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
+  }
+
+  /* --- PANELS & CONTAINERS --- */
+
+  /* Panell de Fusta (Marc fosc amb relleu) */
+  .rpg-panel-wood {
+    @apply relative bg-[#4e342e] border-[6px] border-[#3e2723] rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)];
+  }
+
+  /* Panell de Vidre Fosc (Estil Navbar/Modern) */
+  .rpg-panel-glass {
+    @apply relative bg-black/60 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden;
+  }
+
+  /* Panell de Pergamí (Paper antic) */
+  .rpg-paper {
+    @apply bg-parchment rounded-sm shadow-[0_0_60px_rgba(0,0,0,0.8)] relative border-4 border-double border-wood-light;
+    background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+  }
+
+  /* --- FORMS (Inputs & Labels) --- */
+
+  /* Etiqueta (Label) */
+  .rpg-label {
+    @apply block text-wood-dark font-display font-bold text-sm mb-1.5 tracking-wider;
+  }
+
+  /* Input i Textarea */
+  .rpg-input {
+    @apply w-full bg-[#3e2723]/10 border-2 border-[#8d6e63]/40 px-4 py-3 
+           text-[#3e2723] font-serif text-base placeholder-[#8d6e63]
+           focus:outline-none focus:border-[#3e2723] focus:bg-white/50 
+           transition-all duration-300 rounded-md;
+  }
+
+  /* --- BUTTONS --- */
+
+  /* Botó Primari (Fusta) */
+  .rpg-btn-primary {
+    @apply w-full relative cursor-pointer bg-wood-dark hover:bg-wood-medium text-parchment 
+           transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5
+           active:scale-95 active:translate-y-0 p-1 z-10 font-display font-bold uppercase tracking-widest;
+  }
+
+  /* Contingut intern del botó primari */
+  .rpg-btn-content {
+    @apply border border-parchment/20 rounded-md py-3 px-6 flex items-center justify-center 
+           gap-3 relative overflow-hidden;
+  }
+
+  /* Text del Botó */
+  .rpg-btn-text {
+    @apply font-display font-bold text-lg tracking-widest uppercase;
+  }
+
+  /* Botó Secundari / Glass (Fosc translúcid) */
+  .rpg-btn-glass {
+    @apply bg-black/40 hover:bg-wood-medium/80 border border-white/10 hover:border-primary 
+           shadow-sm hover:shadow-glow text-parchment hover:text-white
+           transition-all duration-300 rounded-sm px-6 py-2.5 backdrop-blur-sm;
+  }
+
+  /* Botó Secundari (Estil Fusta Clara) */
+  .rpg-btn-secondary {
+    @apply relative cursor-pointer bg-[#d7ccc8] hover:bg-[#efebe9] text-wood-dark border border-wood-light
+           transition-all duration-300 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5
+           active:scale-95 p-1 z-10 font-display font-bold text-sm tracking-wider uppercase;
+  }
+
+  /* --- CARDS (Interactive Elements) --- */
+
+  /* Targeta de Fusta (Selector de Móns) */
+  .rpg-card-selectable {
+    @apply relative flex flex-col gap-2 p-4 rounded-lg border-2 border-[#5d4037] cursor-pointer transition-all duration-300 overflow-hidden;
+    background: linear-gradient(to bottom right, #3e2723, #2d1b18);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .rpg-card-selectable:hover {
+    @apply transform -translate-y-1 border-[#8d6e63] shadow-lg;
+    background: linear-gradient(to bottom right, #4e342e, #3e2723);
+  }
+
+  .rpg-card-selectable.active {
+    @apply border-primary bg-[#4e342e];
+    box-shadow: 0 0 15px rgba(255, 170, 0, 0.2), inset 0 0 20px rgba(0,0,0,0.5);
+  }
+
+  .rpg-card-selectable.active::before {
+    content: "";
+    @apply absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-amber-300 via-primary to-amber-500;
+  }
+
+  .rpg-card-selectable.disabled {
+    @apply opacity-60 grayscale-[0.8] cursor-not-allowed border-[#2d1b18];
+    background: #1a0f0d;
+  }
+
+  /* Targeta de Vidre (Estil Arcà) */
+  .rpg-card-glass {
+    @apply relative flex gap-4 p-4 rounded-lg border border-white/5 cursor-pointer transition-all duration-300;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.03), transparent);
+  }
+
+  .rpg-card-glass:hover {
+    @apply bg-white/10 border-white/20 translate-x-1;
+  }
+
+  .rpg-card-glass.active {
+    @apply border-primary/60 bg-gradient-to-r from-primary/10 to-transparent;
+    box-shadow: inset 2px 0 0 0 var(--color-primary);
+  }
+
+  .rpg-card-glass.disabled {
+    @apply opacity-50 grayscale cursor-not-allowed hover:translate-x-0 hover:bg-transparent hover:border-white/5;
+  }
+
+  /* --- PROGRESS BARS --- */
+
+  .rpg-progress-container {
+    @apply relative w-full h-3 bg-[#1a0f0d] rounded-full border-2 border-[#5d4037] shadow-inner overflow-hidden;
+  }
+  
+  .rpg-progress-bar {
+    @apply h-full bg-gradient-to-r from-amber-700 via-primary to-amber-300 relative;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+  }
+  
+  .rpg-progress-bar::after {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-1/2 bg-white/30 rounded-t-full;
+  }
+
+  /* --- DECORATIVES & UTILS --- */
+
+  /* Claus de forja */
+  .rpg-nail {
+    @apply absolute size-3 bg-[#0a0505] rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] border border-black/50;
+  }
+
+  /* Claus petits per targetes */
+  .card-nail {
+    @apply absolute size-1.5 bg-[#1a0f0d] rounded-full opacity-60 shadow-inner;
+  }
+
+  /* Enllaç temàtic */
+  .rpg-link {
+    @apply text-[#3e2723]/70 hover:text-[#ffaa00] transition-colors font-serif italic text-sm underline decoration-[#3e2723]/20 hover:decoration-[#ffaa00];
+  }
+}
+
+/* --- UTILITIES & SCROLLBARS --- */
 @layer utilities {
-  .wood-border {
-    border: 4px solid var(--color-wood-dark);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 0, 0, 0.5);
+  /* Text Gradient (Or/Primary) */
+  .text-gradient-gold {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 drop-shadow-sm;
   }
 
-  .parchment-texture {
-    background-color: var(--color-parchment);
-    /* Placeholder for parchment noise texture if needed */
-    background-image: url("https://www.transparenttextures.com/patterns/paper.png"); 
+  /* =========================================
+     1. SCROLLBAR GLOBAL (Per defecte: Fusta)
+     ========================================= */
+  ::-webkit-scrollbar {
+    width: 14px;
   }
 
-  .hanging-sign {
-    transform-origin: top center;
-    animation: var(--animate-sway);
+  ::-webkit-scrollbar-track {
+    background-color: var(--color-midnight);
+    border-left: 1px solid #2d1b18; /* Això causava el conflicte visual */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
   }
 
-  .lantern-glow {
-    background: radial-gradient(circle, rgba(255, 170, 0, 0.2) 0%, rgba(255, 170, 0, 0) 70%);
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--color-wood-dark), #5d4037);
+    border: 2px solid var(--color-midnight);
+    border-radius: 4px;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1);
   }
 
-  /* 3D Perspective for Guild Hall */
-  .perspective-1000 {
-    perspective: 1000px;
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, var(--color-wood-medium), var(--color-wood-light));
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
+  }
+
+  /* =========================================
+     2. VARIANTS (Override complet)
+     ========================================= */
+
+  /* --- A. Variant RPG (Fusta Fosca & Estreta) --- */
+  .scrollbar-rpg::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .scrollbar-rpg::-webkit-scrollbar-track {
+    background-color: #2d1b18;
+    border-left: 1px solid #1a0f0d; /* Sobreescriu el global */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.8);
+  }
+
+  .scrollbar-rpg::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, #5d4037, #8d6e63);
+    border: 2px solid #2d1b18;
+    border-radius: 4px;
+    box-shadow: none; /* Neteja ombres globals */
+  }
+
+  .scrollbar-rpg::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to right, #ffaa00, #ffd54f);
+    border-color: #8d6e63;
+  }
+
+  /* --- B. Variant Glass (Fosc & Daurat - SENSE FUSTA) --- */
+  .scrollbar-glass::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-glass::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    /* !IMPORTANT: Resetejar estils de fusta del global */
+    border: none; 
+    box-shadow: none;
+  }
+
+  .scrollbar-glass::-webkit-scrollbar-thumb {
+    background: rgba(255, 170, 0, 0.15); /* Color pla, no gradient */
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: 10px;
+    box-shadow: none; /* Elimina l'ombra interna blanca del global */
+    transition: all 0.3s ease;
+  }
+
+  .scrollbar-glass::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 170, 0, 0.8); 
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.4);
+    border-color: transparent;
   }
 }
 
-/* Base styles to ensure fonts load correctly */
+/* Base Reset */
 body {
   background-color: var(--color-midnight);
   color: var(--color-parchment);
@@ -81,3 +313,5 @@ body {
   background-color: var(--color-primary);
   color: var(--color-wood-dark);
 }
+
+
