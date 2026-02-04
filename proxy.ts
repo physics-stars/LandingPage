@@ -6,7 +6,10 @@ import crypto from "crypto";
 
 function sign(value: string) {
   return crypto
-    .createHmac("sha256", process.env.INTERNAL_PAGE_SECRET || "my_super_secret_key")
+    .createHmac(
+      "sha256",
+      process.env.INTERNAL_PAGE_SECRET || "my_super_secret_key",
+    )
     .update(value)
     .digest("hex");
 }
@@ -14,7 +17,7 @@ function sign(value: string) {
 export async function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
   const { pathname } = url;
-  
+
   try {
     if (pathname === "/error") {
       const sig = url.searchParams.get("sig");
@@ -37,17 +40,36 @@ export async function proxy(request: NextRequest) {
     const maintenanceMode = Boolean(maintenanceRaw);
 
     if (!temporarilyUnavailable && !maintenanceMode) {
-      if (pathname === "/temporarily-unavailable" || pathname === "/maintenance") {
+      if (
+        pathname === "/temporarily-unavailable" ||
+        pathname === "/maintenance"
+      ) {
         return NextResponse.redirect(new URL("/", request.url));
       }
+
+      const querySecret = url.searchParams.get("key");
+      const internalToken = process.env.LOGIN_SECRET;
+
+
+      if (pathname === "/play" && querySecret !== internalToken) {
+        url.pathname = "/404";
+        return NextResponse.rewrite(url);
+      }
+
       return NextResponse.next();
     }
 
     if (temporarilyUnavailable && pathname !== "/temporarily-unavailable") {
-      return NextResponse.redirect(new URL("/temporarily-unavailable", request.url));
+      return NextResponse.redirect(
+        new URL("/temporarily-unavailable", request.url),
+      );
     }
 
-    if (maintenanceMode && !temporarilyUnavailable && pathname !== "/maintenance") {
+    if (
+      maintenanceMode &&
+      !temporarilyUnavailable &&
+      pathname !== "/maintenance"
+    ) {
       return NextResponse.redirect(new URL("/maintenance", request.url));
     }
 
@@ -66,7 +88,7 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|.*\\.(?:css|js|png|jpg|jpeg|ico|svg|xml|txt|woff|woff2|eot|ttf|otf|json|br|js|css|wasm)$).*)",
+    "/((?!_next/static|_next/image|.*\\.(?:css|js|png|jpg|jpeg|ico|svg|xml|txt|woff|woff2|eot|ttf|otf|json|br|wasm)$).*)",
     "/api/(.*)",
   ],
 };
