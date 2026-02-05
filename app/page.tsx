@@ -821,7 +821,7 @@ export default function PhysicsStarsLanding() {
                       </div>
                       <div>
                         <h4 className="font-display font-bold text-wood-dark text-lg">Xarxa Professional</h4>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-wood font-bold text-xs uppercase tracking-wider mt-1 hover:text-[#0077b5] transition-colors border-b border-wood/30 hover:border-[#0077b5]">
+                        <a href="https://www.linkedin.com/company/physics-stars/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-wood font-bold text-xs uppercase tracking-wider mt-1 hover:text-[#0077b5] transition-colors border-b border-wood/30 hover:border-[#0077b5]">
                           Connecta a LinkedIn <ExternalLink className="w-3 h-3" />
                         </a>
                       </div>
