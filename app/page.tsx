@@ -322,10 +322,6 @@ export default function PhysicsStarsLanding() {
 
             {/* Hanging Sign CTA */}
             <div className="hanging-sign mt-12 relative group cursor-pointer animate-wiggle">
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-20 pointer-events-none">
-                <div className="absolute top-0 left-4 w-1.5 h-12 bg-linear-to-b from-zinc-800 to-zinc-900 shadow-lg"></div>
-                <div className="absolute top-0 right-4 w-1.5 h-12 bg-linear-to-b from-zinc-800 to-zinc-900 shadow-lg"></div>
-              </div>
 
               <Link
                 href={"/login"}
