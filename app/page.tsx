@@ -163,9 +163,9 @@ const teamData = [
     role: "Cofundador & Visionari",
     img: "/david.jpg",
     socials: {
-      linkedin: "https://linkedin.com/in/david",
-      email: "mailto:david@physicsstars.com",
-      instagram: "https://instagram.com/david",
+      linkedin: "https://www.linkedin.com/in/daviddiestrerubio/",
+      email: "mailto:david.diestre@physicsstars.com",
+      instagram: null,
     },
   },
   {
@@ -173,8 +173,8 @@ const teamData = [
     role: "Cofundador & Estratègia",
     img: "/juan.png",
     socials: {
-      linkedin: "https://linkedin.com/in/juan",
-      email: "mailto:juan@physicsstars.com",
+      linkedin: "https://www.linkedin.com/in/juan-roset-moreno-75b112286/",
+      email: "mailto:juan.roset@physicsstars.com",
       instagram: null,
     },
   },
@@ -183,9 +183,9 @@ const teamData = [
     role: "Dev Principal & Arquitecte",
     img: "/marcel_pov.jpg",
     socials: {
-      linkedin: "https://linkedin.com/in/marcel",
-      email: "mailto:marcel@physicsstars.com",
-      instagram: "https://instagram.com/marcel",
+      linkedin: "https://www.linkedin.com/in/marcel-povill-i-lleti/",
+      email: "mailto:marcel.povill@physicsstars.com",
+      instagram: null,
     },
   },
   {
@@ -193,9 +193,9 @@ const teamData = [
     role: "Mestre de l'Art (UX/UI)",
     img: "/aissam.jpg",
     socials: {
-      linkedin: "https://linkedin.com/in/aissam",
-      email: "mailto:aissam@physicsstars.com",
-      instagram: "https://instagram.com/aissam",
+      linkedin: "https://www.linkedin.com/in/aissam-khadraoui-9a2208288/",
+      email: "mailto:aissam.khadraoui@physicsstars.com",
+      instagram: null,
     },
   },
 ];
