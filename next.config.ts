@@ -3,7 +3,7 @@ module.exports = {
   async headers() {
     return [
       {
-        source: "/Build/BuildGemini.framework.br",
+        source: "/Build/BuildProd.framework.br",
         headers: [
           { key: "Content-Type", value: "application/javascript" },
           { key: "Content-Encoding", value: "br" },
@@ -11,7 +11,7 @@ module.exports = {
         ],
       },
       {
-        source: "/Build/BuildGemini.wasmfile.br",
+        source: "/Build/BuildProd.wasmfile.br",
         headers: [
           { key: "Content-Type", value: "application/wasm" },
           { key: "Content-Encoding", value: "br" },
@@ -19,7 +19,7 @@ module.exports = {
         ],
       },
       {
-        source: "/Build/BuildGemini.data.br",
+        source: "/Build/BuildProd.data.br",
         headers: [
           { key: "Content-Type", value: "application/octet-stream" },
           { key: "Content-Encoding", value: "br" },

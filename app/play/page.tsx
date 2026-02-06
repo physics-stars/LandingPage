@@ -10,11 +10,11 @@ export default function UnityGame() {
   useEffect(() => {
     // 1. Configuración de Unity basada en tu index.html
     const buildUrl = "Build";
-    const loaderUrl = `${buildUrl}/BuildGemini.loader.js`;
+    const loaderUrl = `${buildUrl}/BuildProd.loader.js`;
     const config = {
-      dataUrl: `${buildUrl}/BuildGemini.data.br`,
-      frameworkUrl: `${buildUrl}/BuildGemini.framework.br`,
-      codeUrl: `${buildUrl}/BuildGemini.wasmfile.br`,
+      dataUrl: `${buildUrl}/BuildProd.data.br`,
+      frameworkUrl: `${buildUrl}/BuildProd.framework.br`,
+      codeUrl: `${buildUrl}/BuildProd.wasmfile.br`,
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Physics Stars",
@@ -39,9 +39,9 @@ export default function UnityGame() {
             const data = await res.json();
             
             // Enviamos la respuesta al objeto "--- MANAGERS ---"
-            instance.SendMessage("--- MANAGERS ---", "OnGeminiResponse", data.text || data.error);
+            instance.SendMessage("--- SYSTEM ---", "OnGeminiResponse", data.text || data.error);
           } catch (e: any) {
-            instance.SendMessage("--- MANAGERS ---", "OnGeminiResponse", "Error de red");
+            instance.SendMessage("--- SYSTEM ---", "OnGeminiResponse", "Error de red");
           }
         };
       });
