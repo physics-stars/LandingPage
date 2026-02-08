@@ -211,6 +211,35 @@
   .rpg-link {
     @apply text-[#3e2723]/70 hover:text-[#ffaa00] transition-colors font-serif italic text-sm underline decoration-[#3e2723]/20 hover:decoration-[#ffaa00];
   }
+
+
+
+
+
+
+
+
+
+
+  @keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes indefinite-load {
+  0% { width: 80%; }
+  50% { width: 95%; }
+  100% { width: 99%; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+}
+
+/* This animation runs purely on CSS, so it won't freeze when JS freezes */
+.animate-finish-line {
+  animation: indefinite-load 15s ease-out forwards;
+}
 }
 
 /* --- UTILITIES & SCROLLBARS --- */
