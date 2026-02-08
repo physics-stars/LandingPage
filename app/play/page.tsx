@@ -55,7 +55,7 @@ declare function createUnityInstance(
 ): Promise<UnityInstance>;
 
 // --- CONSTANTS FOR POTATO MODE ---
-const LOW_FPS_THRESHOLD = 25; // FPS below this is considered "Laggy"
+const LOW_FPS_THRESHOLD = 35; // FPS below this is considered "Laggy"
 
 export default function UnityGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -113,19 +113,36 @@ export default function UnityGame() {
         const frameTime = (delta / frameCount).toFixed(2);
 
         // --- POTATO MODE DETECTION ---
-        // Store FPS in history
         if (fps > 0) {
             fpsHistory.current.push(fps);
-            // Keep last 5 seconds of data (approx 5 checks)
             if (fpsHistory.current.length > 5) fpsHistory.current.shift();
 
-            // Calculate average
             const avgFps = fpsHistory.current.reduce((a, b) => a + b, 0) / fpsHistory.current.length;
 
-            // If we have enough data and performance is consistently bad
-            if (fpsHistory.current.length >= 3 && avgFps < LOW_FPS_THRESHOLD && !isPotatoMode) {
-                console.warn("Sustainable low FPS detected. Marking as Potato Mode.");
+            // Si los FPS son 35 o menos y AÚN no estamos en modo patata
+            if (fpsHistory.current.length >= 3 && avgFps <= LOW_FPS_THRESHOLD && !isPotatoMode) {
+                console.warn("CRITICAL LAG: Forcing Resolution Downgrade via JS.");
+                
                 setIsPotatoMode(true);
+                setActivePixelRatio(0.75); // Actualiza solo el texto de la UI
+
+                // --- THE JS HACK: Forzar el cambio de resolución desde React ---
+                const canvas = canvasRef.current;
+                if (canvas) {
+                    // 1. Obtenemos el tamaño visual actual en píxeles de pantalla
+                    const cssWidth = canvas.clientWidth;
+                    const cssHeight = canvas.clientHeight;
+
+                    // 2. Forzamos al buffer interno a ser más pequeño (0.75x)
+                    // Esto reduce la carga de la GPU inmediatamente.
+                    canvas.width = cssWidth * 0.75;
+                    canvas.height = cssHeight * 0.75;
+                    
+                    // NOTA: Unity podría intentar corregir esto en el siguiente frame si
+                    // detecta un cambio de tamaño de ventana, pero usualmente este cambio
+                    // manual "pega" y se mantiene hasta que redimensionas el navegador.
+                }
+                // -------------------------------------------------------------
             }
         }
         // -----------------------------
@@ -167,7 +184,7 @@ export default function UnityGame() {
     targetDpr = Math.min(targetDpr, 2.0);
 
     // RULE 2: Weak CPU (< 4 cores) -> Force Low Quality (1.0)
-    if (cores < 4) {
+    if (cores <= 4) {
         targetDpr = 1.0;
         console.log("Weak hardware detected. Downgrading to 1080p.");
     }
