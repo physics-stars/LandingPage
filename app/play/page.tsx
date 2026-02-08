@@ -37,7 +37,7 @@ interface UnityConfig {
   companyName: string;
   productName: string;
   productVersion: string;
-  devicePixelRatio?: number; // <--- ADD THIS
+  devicePixelRatio?: number; // <--- Critical for performance scaling
 }
 
 interface PerformanceMetrics {
@@ -54,6 +54,9 @@ declare function createUnityInstance(
   onProgress: (progress: number) => void,
 ): Promise<UnityInstance>;
 
+// --- CONSTANTS FOR POTATO MODE ---
+const LOW_FPS_THRESHOLD = 25; // FPS below this is considered "Laggy"
+
 export default function UnityGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [unityInstance, setUnityInstance] = useState<UnityInstance | null>(
@@ -63,7 +66,10 @@ export default function UnityGame() {
   // --- LOADING STATE ---
   const [nativeProgress, setNativeProgress] = useState(0);
   const [isGameLoaded, setIsGameLoaded] = useState(false);
+  
+  // --- PERFORMANCE STATE ---
   const [activePixelRatio, setActivePixelRatio] = useState(1);
+  const [isPotatoMode, setIsPotatoMode] = useState(false); // New State: True if PC is struggling
 
   // --- METRICS STATE ---
   const [metrics, setMetrics] = useState<PerformanceMetrics>({
@@ -74,18 +80,18 @@ export default function UnityGame() {
     pixelRatio: 1,
   });
 
+  // Track FPS history to detect lag spikes
+  const fpsHistory = useRef<number[]>([]);
+
   // --- LOGIC: DOWNLOAD VS COMPILE ---
-  // If nativeProgress is >= 0.9, we force the bar to be FULL (100%) visually.
-  // This ensures that even if the freeze happens at 0.91, the bar snaps to full.
   const isCompiling = nativeProgress >= 0.9 && nativeProgress < 1;
   const progressPercent = isCompiling
     ? 100
     : Math.min((nativeProgress / 0.9) * 100, 100);
 
-  // Calculate scale for CSS Transform (0.0 to 1.0)
   const progressScale = progressPercent / 100;
 
-  // --- 1. PERFORMANCE MONITOR LOOP ---
+  // --- 1. PERFORMANCE MONITOR LOOP (ENHANCED) ---
   useEffect(() => {
     let lastTime = performance.now();
     let frameCount = 0;
@@ -100,10 +106,29 @@ export default function UnityGame() {
       const now = performance.now();
       frameCount++;
 
+      // Update metrics every 1000ms
       if (now - lastTime >= 1000) {
         const delta = now - lastTime;
         const fps = Math.round((frameCount * 1000) / delta);
         const frameTime = (delta / frameCount).toFixed(2);
+
+        // --- POTATO MODE DETECTION ---
+        // Store FPS in history
+        if (fps > 0) {
+            fpsHistory.current.push(fps);
+            // Keep last 5 seconds of data (approx 5 checks)
+            if (fpsHistory.current.length > 5) fpsHistory.current.shift();
+
+            // Calculate average
+            const avgFps = fpsHistory.current.reduce((a, b) => a + b, 0) / fpsHistory.current.length;
+
+            // If we have enough data and performance is consistently bad
+            if (fpsHistory.current.length >= 3 && avgFps < LOW_FPS_THRESHOLD && !isPotatoMode) {
+                console.warn("Sustainable low FPS detected. Marking as Potato Mode.");
+                setIsPotatoMode(true);
+            }
+        }
+        // -----------------------------
 
         const perf = performance as PerformanceWithMemory;
         const memoryRaw = perf.memory ? perf.memory.usedJSHeapSize : 0;
@@ -126,27 +151,31 @@ export default function UnityGame() {
 
     loop();
     return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  }, [isPotatoMode]); // Re-run if potato mode changes (optional, usually loop handles it)
 
   // --- 2. UNITY LOADER ---
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    // --- SMART RESOLUTION LOGIC ---
+    // --- SMART RESOLUTION LOGIC (INITIALIZATION) ---
     const systemDpr = typeof window !== 'undefined' ? window.devicePixelRatio : 1;
     const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency || 4 : 4;
     
-    // Default to the system's preference (e.g., 2.0 or 3.0)
     let targetDpr = systemDpr;
 
-    // RULE 1: Cap at 2.0 (Nobody needs 3.0 for a game, it's just heat waste)
+    // RULE 1: Cap at 2.0 (Save GPU heat)
     targetDpr = Math.min(targetDpr, 2.0);
 
-    // RULE 2: If the CPU is weak (< 4 cores), force Low Quality (1.0)
-    // This saves old laptops and cheap phones from melting.
+    // RULE 2: Weak CPU (< 4 cores) -> Force Low Quality (1.0)
     if (cores < 4) {
         targetDpr = 1.0;
         console.log("Weak hardware detected. Downgrading to 1080p.");
+    }
+
+    // RULE 3 (NEW): Mobile Check. Mobile GPUs are weaker than Desktop CPUs with same core count.
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile && targetDpr > 1.5) {
+        targetDpr = 1.5;
     }
 
     setActivePixelRatio(targetDpr);
@@ -162,7 +191,7 @@ export default function UnityGame() {
       companyName: "DefaultCompany",
       productName: "Physics Stars",
       productVersion: "0.1.0",
-      devicePixelRatio: targetDpr, // <--- INSTRUCT UNITY TO USE THIS RATIO
+      devicePixelRatio: targetDpr, // Applies the optimization
     };
 
     const script = document.createElement("script");
@@ -177,9 +206,7 @@ export default function UnityGame() {
           setNativeProgress(1);
           setIsGameLoaded(true);
 
-          // --- MANUAL FALLBACK FOR OLDER UNITY VERSIONS ---
-          // Some Unity loaders ignore the config.devicePixelRatio. 
-          // This ensures the canvas buffer size matches our desired performance target.
+          // --- MANUAL FALLBACK FOR OLDER UNITY LOADERS ---
           const canvas = canvasRef.current!;
           if (canvas) {
              const width = canvas.clientWidth * targetDpr;
@@ -190,7 +217,19 @@ export default function UnityGame() {
              }
           }
 
-          // ... [Keep Gemini Bridge Logic] ...
+          // --- GEMINI BRIDGE ---
+          window.dispatchGeminiRequest = async (prompt: string) => {
+            try {
+              const res = await fetch("/api/gemini", {
+                method: "POST",
+                body: JSON.stringify({ prompt }),
+              });
+              const data = await res.json();
+              instance.SendMessage("--- SYSTEM ---", "OnGeminiResponse", data.text || data.error);
+            } catch {
+              instance.SendMessage("--- SYSTEM ---", "OnGeminiResponse", "Error de red");
+            }
+          };
         })
         .catch((err: unknown) => {
           console.error("Unity failed to load", err);
@@ -209,6 +248,7 @@ export default function UnityGame() {
 
   return (
     <div className="h-screen w-screen bg-gray-950 flex flex-col overflow-hidden font-sans text-gray-100 select-none">
+      
       {/* --- HEADER --- */}
       <header className="h-12 flex-none bg-gray-900/80 backdrop-blur-md border-b border-gray-800 flex items-center justify-between px-6 z-10 text-xs font-mono">
         <div className="flex items-center gap-4">
@@ -218,10 +258,15 @@ export default function UnityGame() {
         </div>
 
         <div className="flex items-center gap-6 text-gray-400">
+          
+          {/* FPS Counter - Turns RED if Potato Mode is active */}
           <div className="flex flex-col sm:flex-row sm:gap-2 items-end sm:items-center">
-            <span className="text-gray-600 font-bold">FPS</span>
-            <span className="text-white">{metrics.fps}</span>
+            <span className={`font-bold ${isPotatoMode ? "text-red-500 animate-pulse" : "text-gray-600"}`}>
+                {isPotatoMode ? "FPS (LOW)" : "FPS"}
+            </span>
+            <span className={`text-white ${isPotatoMode ? "text-red-400" : ""}`}>{metrics.fps}</span>
           </div>
+
           <div className="flex flex-col sm:flex-row sm:gap-2 items-end sm:items-center">
             <span className="text-gray-600 font-bold">TIME PER FRAME</span>
             <span>{metrics.frameTime}ms</span>
@@ -230,13 +275,13 @@ export default function UnityGame() {
             <span className="text-gray-600 font-bold">MEM.</span>
             <span>{metrics.memory}</span>
           </div>
-          {/* DISPLAY THE ACTIVE RATIO */}
+          
+          {/* QUALITY INDICATOR */}
             <div className="hidden md:flex gap-2 items-center">
                 <span className="text-gray-600 font-bold">QUALITY</span>
-                {/* Color code the quality setting */}
-                <span className="font-bold">
+                <span className={`font-bold ${isPotatoMode ? "text-red-500" : activePixelRatio < 1.5 ? "text-yellow-500" : "text-green-500"}`}>
                     {activePixelRatio.toFixed(1)}x 
-                    {activePixelRatio < 1.5 ? ' (Low Quality)' : ' (High Quality)'}
+                    {isPotatoMode ? ' (CRITICAL)' : activePixelRatio < 1.5 ? ' (Perf)' : ' (High)'}
                 </span>
             </div>
         </div>
@@ -261,13 +306,9 @@ export default function UnityGame() {
 
               {/* PROGRESS BAR */}
               <div className="w-full space-y-2 mb-8">
-                {/* KEY CHANGE: We use 'relative' on container and 'absolute' on the fill. 
-                   We use 'scaleX' instead of 'width' because Transforms run on the GPU.
-                */}
                 <div className="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden relative">
                   <div
                     className={`absolute top-0 left-0 h-full w-full bg-blue-500 origin-left transition-transform duration-300 ease-out will-change-transform ${isCompiling ? "shadow-[0_0_15px_rgba(59,130,246,0.6)]" : ""}`}
-                    // Use scaleX(0.5) instead of width: 50%
                     style={{ transform: `scaleX(${progressScale})` }}
                   />
                 </div>
@@ -298,6 +339,9 @@ export default function UnityGame() {
                 <div className="text-center space-y-1">
                   <p className="text-blue-400 text-xs font-bold uppercase tracking-widest animate-pulse">
                     Iniciant Physics Stars...
+                  </p>
+                  <p className="text-gray-500 text-[10px]">
+                    Optimitzant per a la teva targeta gràfica...
                   </p>
                 </div>
               </div>
