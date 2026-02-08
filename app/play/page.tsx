@@ -271,6 +271,10 @@ export default function UnityGame() {
             <span className="text-gray-600 font-bold">TIME PER FRAME</span>
             <span>{metrics.frameTime}ms</span>
           </div>
+          <div className="flex flex-col sm:flex-row sm:gap-2 items-end sm:items-center">
+            <span className="text-gray-600 font-bold">CPU CORES</span>
+            <span>{metrics.cpuCores}</span>
+          </div>
           <div className="hidden sm:flex gap-2 items-center">
             <span className="text-gray-600 font-bold">MEM.</span>
             <span>{metrics.memory}</span>
