@@ -345,7 +345,7 @@ export default function UnityGame() {
                     Iniciant Physics Stars...
                   </p>
                   <p className="text-gray-500 text-[10px]">
-                    Optimitzant per a la teva targeta gràfica...
+                    Prepara&apos;t per una aventura plena de física i diversió!
                   </p>
                 </div>
               </div>
