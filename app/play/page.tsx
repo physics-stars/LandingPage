@@ -93,6 +93,8 @@ export default function UnityGame() {
 
   // --- 1. PERFORMANCE MONITOR LOOP (ENHANCED) ---
   useEffect(() => {
+    if (!isGameLoaded) return;
+
     let lastTime = performance.now();
     let frameCount = 0;
     let animationFrameId: number;
@@ -151,7 +153,7 @@ export default function UnityGame() {
 
     loop();
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isPotatoMode]); // Re-run if potato mode changes (optional, usually loop handles it)
+  }, [isPotatoMode, isGameLoaded]); // Re-run if potato mode changes (optional, usually loop handles it)
 
   // --- 2. UNITY LOADER ---
   useEffect(() => {
