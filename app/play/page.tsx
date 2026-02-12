@@ -183,12 +183,12 @@ export default function UnityGame() {
     setActivePixelRatio(targetDpr);
 
     const buildUrl = "Build";
-    const loaderUrl = `${buildUrl}/BuildProd2.loader.js`;
+    const loaderUrl = `${buildUrl}/BuildProd3.loader.js`;
 
     const config: UnityConfig = {
-      dataUrl: `${buildUrl}/BuildProd2.data.br`,
-      frameworkUrl: `${buildUrl}/BuildProd2.framework.br`,
-      codeUrl: `${buildUrl}/BuildProd2.wasmfile.br`,
+      dataUrl: `${buildUrl}/BuildProd3.data.br`,
+      frameworkUrl: `${buildUrl}/BuildProd3.framework.br`,
+      codeUrl: `${buildUrl}/BuildProd3.wasmfile.br`,
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Physics Stars",
