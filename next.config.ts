@@ -19,7 +19,7 @@ const nextConfig = {
           { key: "Vary", value: "Accept-Encoding" },
         ],
       },
-      {
+      { 
         source: "/Build/BuildProd.data.br",
         headers: [
           { key: "Content-Type", value: "application/octet-stream" },
