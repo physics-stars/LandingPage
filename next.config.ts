@@ -4,7 +4,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/Build/BuildProd3.framework.br",
+        source: "/Build/BuildProd.framework.br",
         headers: [
           { key: "Content-Type", value: "application/javascript" },
           { key: "Content-Encoding", value: "br" },
@@ -12,7 +12,7 @@ const nextConfig = {
         ],
       },
       {
-        source: "/Build/BuildProd3.wasmfile.br",
+        source: "/Build/BuildProd.wasmfile.br",
         headers: [
           { key: "Content-Type", value: "application/wasm" },
           { key: "Content-Encoding", value: "br" },
@@ -20,7 +20,7 @@ const nextConfig = {
         ],
       },
       {
-        source: "/Build/BuildProd3.data.br",
+        source: "/Build/BuildProd.data.br",
         headers: [
           { key: "Content-Type", value: "application/octet-stream" },
           { key: "Content-Encoding", value: "br" },
