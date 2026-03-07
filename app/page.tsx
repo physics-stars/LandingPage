@@ -251,9 +251,9 @@ export default function PhysicsStarsLanding() {
                   priority
                 />
               </div>
-              <span className="text-white font-display font-bold text-xl tracking-wide drop-shadow-md">
+              <h1 className="text-white font-display font-bold text-xl tracking-wide drop-shadow-md">
                 Physics Stars
-              </span>
+              </h1>
             </div>
 
             <div className="hidden md:flex items-center gap-8 bg-black/40 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10">
@@ -308,12 +308,12 @@ export default function PhysicsStarsLanding() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="font-display text-5xl md:text-7xl font-black text-white leading-tight mb-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
+              <h2 className="font-display text-5xl md:text-7xl font-black text-white leading-tight mb-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">
                 Pensa com un{" "}
                 <span className="text-gradient-gold drop-shadow-glow">
                   Científic
                 </span>
-              </h1>
+              </h2>
               <p className="text-xl md:text-2xl text-parchment/90 max-w-2xl mx-auto font-medium drop-shadow-md">
                 Transforma l&apos;ensenyament en una aventura interactiva per a
                 l&apos;aprenentatge de la física.
